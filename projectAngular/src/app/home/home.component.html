@@ -1,41 +1,150 @@
 <p-tabView>
     <p-tabPanel header="Header I">
         <div class="tab-content">
-            <div class="image-container">
-                <img src="https://gratisography.com/wp-content/uploads/2024/01/gratisography-cyber-kitty-800x525.jpg"
-                    alt="Image 1 Description" />
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen></iframe>
             </div>
             <div class="text-container">
-                <h2>Beautiful Title for Image 1</h2>
+                <h2>Beautiful Title for Video 1</h2>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur a augue eu erat tincidunt commodo.
                 </p>
+                <button class="action-button">Watch Now</button>
             </div>
         </div>
     </p-tabPanel>
 
     <p-tabPanel header="Header II">
         <div class="tab-content">
-            <div class="image-container">
-                <img src="https://gratisography.com/wp-content/uploads/2024/01/gratisography-cyber-kitty-800x525.jpg"
-                    alt="Image 2 Description" />
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen></iframe>
             </div>
             <div class="text-container">
-                <h2>Beautiful Title for Image 2</h2>
+                <h2>Beautiful Title for Video 2</h2>
                 <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.</p>
+                <button class="action-button">Watch Now</button>
             </div>
         </div>
     </p-tabPanel>
 
     <p-tabPanel header="Header III">
         <div class="tab-content">
-            <div class="image-container">
-                <img src="https://gratisography.com/wp-content/uploads/2024/01/gratisography-cyber-kitty-800x525.jpg"
-                    alt="Image 3 Description" />
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen></iframe>
             </div>
             <div class="text-container">
-                <h2>Beautiful Title for Image 3</h2>
+                <h2>Beautiful Title for Video 3</h2>
                 <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum.</p>
+                <button class="action-button">Watch Now</button>
             </div>
         </div>
     </p-tabPanel>
 </p-tabView>
+
+<style>
+    .tab-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        /* Align items at the start */
+        padding: 20px;
+        background-color: #f9f9f9;
+        /* Light background color for contrast */
+        border-radius: 10px;
+        /* Rounded corners for the tab content */
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        /* Soft shadow for depth */
+    }
+
+    .video-container {
+        flex: 1;
+        padding-right: 20px;
+    }
+
+    .video-container iframe {
+        width: 100%;
+        height: 300px;
+        /* Adjust height as needed */
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .text-container {
+        flex: 1;
+        padding-left: 20px;
+    }
+
+    .text-container h2 {
+        font-size: 24px;
+        margin-bottom: 15px;
+        color: #4a90e2;
+    }
+
+    .text-container p {
+        font-size: 16px;
+        line-height: 1.5;
+        color: #333;
+        margin-bottom: 20px;
+        /* Space below the paragraph */
+    }
+
+    .action-button {
+        padding: 12px 24px;
+        font-size: 16px;
+        color: #fff;
+        background-color: #4a90e2;
+        /* Button color */
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.2s;
+        /* Smooth transition */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        /* Subtle shadow */
+    }
+
+    .action-button:hover {
+        background-color: #357ABD;
+        /* Darker shade on hover */
+        transform: translateY(-2px);
+        /* Lift effect on hover */
+    }
+
+    .action-button:active {
+        transform: translateY(0);
+        /* Return to normal on click */
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        /* Reduce shadow on click */
+    }
+
+    ::ng-deep .p-tabview-nav li {
+        width: 32vw;
+        /* Set the width of each tab */
+        display: flex;
+        /* Use flexbox for alignment */
+        justify-content: center;
+        /* Center the text horizontally */
+        align-items: center;
+        /* Center the text vertically */
+        padding: 10px;
+        /* Add some padding for spacing */
+        box-sizing: border-box;
+        /* Include padding in width calculation */
+        background-color: #f0f0f0;
+        /* Optional: Background color for the tabs */
+        border-radius: 5px;
+        /* Optional: Rounded corners */
+        transition: background-color 0.3s;
+        /* Smooth transition for hover effects */
+    }
+
+    ::ng-deep .p-tabview-nav li:hover {
+        background-color: #e0e0e0;
+        /* Change background color on hover */
+    }
+</style>

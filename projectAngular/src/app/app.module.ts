@@ -20,6 +20,8 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ReportCardComponent } from './report-card/report-card.component';
 import { HomeComponent } from './home/home.component';
+import { SplitButtonModule } from 'primeng/splitbutton';
+
 
 @NgModule({
   declarations: [
@@ -31,7 +33,7 @@ import { HomeComponent } from './home/home.component';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    CalendarModule,
+    CalendarModule, SplitButtonModule,
     ButtonModule,
     AutoCompleteModule,
     CascadeSelectModule,
