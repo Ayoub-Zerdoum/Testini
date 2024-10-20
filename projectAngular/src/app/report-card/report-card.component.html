@@ -1,0 +1,26 @@
+<div class="report-container">
+    <!-- Breadcrumb and header section -->
+    <div class="header-section">
+        <p-breadcrumb [model]="breadcrumbItems"></p-breadcrumb>
+        <h2 class="subject-title">
+            <i class="pi pi-check-square"></i> 2nd Period - MS - Mathematics
+        </h2>
+        <button pButton label="New Test" icon="pi pi-arrow-left" class="back-button" style="margin: 10px 0;"></button>
+    </div>
+
+    <!-- Main table with unified student list across all tests -->
+    <p-table [value]="students" class="report-table" [responsiveLayout]="'scroll'">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Student Name</th>
+                <th *ngFor="let test of tests">{{ test.testName }}</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-student>
+            <tr>
+                <td>{{student.name}}</td>
+                <td *ngFor="let test of tests">{{student[test.testName]}}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
