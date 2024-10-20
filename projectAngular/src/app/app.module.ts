@@ -10,6 +10,8 @@ import { CascadeSelectModule } from 'primeng/cascadeselect';
 import { TableModule } from 'primeng/table';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { DialogModule } from 'primeng/dialog';
+import { StepperModule } from 'primeng/stepper';
+import { TabViewModule } from 'primeng/tabview';
 
 
 
@@ -17,12 +19,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ReportCardComponent } from './report-card/report-card.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    ReportCardComponent
+    ReportCardComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +37,7 @@ import { ReportCardComponent } from './report-card/report-card.component';
     CascadeSelectModule,
     FormsModule,
     AppRoutingModule, TableModule,
-    BreadcrumbModule, DialogModule,
+    BreadcrumbModule, DialogModule, StepperModule, TabViewModule
   ],
   providers: [
     provideClientHydration()

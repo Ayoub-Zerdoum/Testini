@@ -1,0 +1,35 @@
+.tab-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+}
+
+.image-container {
+    flex: 1;
+    padding-right: 20px;
+}
+
+.image-container img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.text-container {
+    flex: 1;
+    padding-left: 20px;
+}
+
+.text-container h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #4a90e2;
+}
+
+.text-container p {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #333;
+}
