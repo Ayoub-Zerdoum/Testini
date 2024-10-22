@@ -1,0 +1,6 @@
+<div class="app-container">
+    <app-navbar (sidebarToggle)="onSidebarToggle($event)"></app-navbar>
+    <div class="content" [ngClass]="{'collapsed': !sidebarExpanded}">
+        <router-outlet></router-outlet>
+    </div>
+</div>

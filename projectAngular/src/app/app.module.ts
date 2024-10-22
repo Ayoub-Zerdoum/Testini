@@ -12,8 +12,11 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { DialogModule } from 'primeng/dialog';
 import { StepperModule } from 'primeng/stepper';
 import { TabViewModule } from 'primeng/tabview';
+import { DropdownModule } from 'primeng/dropdown';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { CheckboxModule } from 'primeng/checkbox';
 
-
+import { InputTextModule } from 'primeng/inputtext';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -21,6 +24,10 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { ReportCardComponent } from './report-card/report-card.component';
 import { HomeComponent } from './home/home.component';
 import { SplitButtonModule } from 'primeng/splitbutton';
+import { TemplateComponent } from './template/template.component';
+import { TemplateCardComponent } from './template-card/template-card.component';
+import { LoginComponent } from './login/login.component';
+import { InsideComponent } from './inside/inside.component';
 
 
 @NgModule({
@@ -28,15 +35,19 @@ import { SplitButtonModule } from 'primeng/splitbutton';
     AppComponent,
     NavbarComponent,
     ReportCardComponent,
-    HomeComponent
+    HomeComponent,
+    TemplateComponent,
+    TemplateCardComponent,
+    LoginComponent,
+    InsideComponent
   ],
   imports: [
-    BrowserModule,
+    BrowserModule, RadioButtonModule,
     BrowserAnimationsModule,
     CalendarModule, SplitButtonModule,
-    ButtonModule,
-    AutoCompleteModule,
-    CascadeSelectModule,
+    ButtonModule, DropdownModule,
+    AutoCompleteModule, CheckboxModule,
+    CascadeSelectModule, InputTextModule,
     FormsModule,
     AppRoutingModule, TableModule,
     BreadcrumbModule, DialogModule, StepperModule, TabViewModule

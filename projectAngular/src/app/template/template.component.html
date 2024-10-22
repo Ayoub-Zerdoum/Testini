@@ -1,0 +1,54 @@
+<div class="template-gallery">
+    <h1>Template Gallery</h1>
+
+    <div class="filters">
+        <div class="filter-item">
+            <label for="search">Search By Name</label>
+            <input type="text" id="search" pInputText placeholder="Enter a value" />
+        </div>
+
+        <div class="filter-item">
+            <label for="type">Type</label>
+            <p-dropdown id="type" [options]="types" [(ngModel)]="selectedType"></p-dropdown>
+        </div>
+
+        <div class="filter-item">
+            <label for="level">Level</label>
+            <p-dropdown id="level" [options]="levels" [(ngModel)]="selectedLevel"></p-dropdown>
+        </div>
+
+        <div class="filter-item time-limited">
+            <label for="time-limited">Time limited</label>
+            <p-checkbox [(ngModel)]="isTimeLimited" binary="true"></p-checkbox>
+        </div>
+
+        <div class="filter-item">
+            <label for="sort-by">Sort By</label>
+            <p-dropdown id="sort-by" [options]="sortOptions" [(ngModel)]="selectedSort"></p-dropdown>
+        </div>
+
+        <div class="filter-item displays">
+            <p-radioButton name="sortOrder" value="asc" [(ngModel)]="sortOrder" label="Asc"></p-radioButton>
+            <p-radioButton name="sortOrder" value="desc" [(ngModel)]="sortOrder" label="Desc"></p-radioButton>
+        </div>
+
+        <div class="sort-direction">
+            <label for="display">Display</label>
+            <p-radioButton name="displayMode" value="A" [(ngModel)]="displayMode" label="A"></p-radioButton>
+            <p-radioButton name="displayMode" value="B" [(ngModel)]="displayMode" label="B"></p-radioButton>
+            <p-radioButton name="displayMode" value="C" [(ngModel)]="displayMode" label="C"></p-radioButton>
+        </div>
+    </div>
+    <hr>
+    <div class="cards">
+        <app-template-card></app-template-card>
+        <app-template-card></app-template-card>
+        <app-template-card></app-template-card>
+        <app-template-card></app-template-card>
+        <app-template-card></app-template-card>
+        <app-template-card></app-template-card>
+
+
+
+    </div>
+</div>
