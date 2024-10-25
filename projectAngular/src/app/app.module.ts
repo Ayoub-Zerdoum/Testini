@@ -15,6 +15,7 @@ import { TabViewModule } from 'primeng/tabview';
 import { DropdownModule } from 'primeng/dropdown';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { CheckboxModule } from 'primeng/checkbox';
+import { ImageModule } from 'primeng/image';
 
 import { InputTextModule } from 'primeng/inputtext';
 
@@ -43,7 +44,7 @@ import { InsideComponent } from './inside/inside.component';
   ],
   imports: [
     BrowserModule, RadioButtonModule,
-    BrowserAnimationsModule,
+    BrowserAnimationsModule, ImageModule,
     CalendarModule, SplitButtonModule,
     ButtonModule, DropdownModule,
     AutoCompleteModule, CheckboxModule,
