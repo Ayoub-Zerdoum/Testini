@@ -12,9 +12,5 @@ interface Country {
 })
 export class AppComponent {
 
-  sidebarExpanded: boolean = true;
 
-  onSidebarToggle(expanded: boolean) {
-    this.sidebarExpanded = expanded; // Update state based on sidebar toggle
-  }
 }
