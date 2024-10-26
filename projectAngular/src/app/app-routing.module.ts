@@ -5,6 +5,7 @@ import { InsideComponent } from './inside/inside.component'; // Adjust as necess
 import { HomeComponent } from './home/home.component'; // Adjust as necessary
 import { ReportCardComponent } from './report-card/report-card.component';
 import { TemplateComponent } from './template/template.component'; // Adjust as necessary
+import { ClassroomDisplayComponent } from './classroom-display/classroom-display.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -14,6 +15,7 @@ const routes: Routes = [
       { path: 'report-card', component: ReportCardComponent },
 
       { path: 'template', component: TemplateComponent },
+      { path: 'classroom', component: ClassroomDisplayComponent },
       { path: '', redirectTo: 'home', pathMatch: 'full' }, // Default route
     ]
   },

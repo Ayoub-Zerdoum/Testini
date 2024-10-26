@@ -16,6 +16,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { CheckboxModule } from 'primeng/checkbox';
 import { ImageModule } from 'primeng/image';
+import { ToolbarModule } from 'primeng/toolbar';
 
 import { InputTextModule } from 'primeng/inputtext';
 
@@ -29,6 +30,7 @@ import { TemplateComponent } from './template/template.component';
 import { TemplateCardComponent } from './template-card/template-card.component';
 import { LoginComponent } from './login/login.component';
 import { InsideComponent } from './inside/inside.component';
+import { ClassroomDisplayComponent } from './classroom-display/classroom-display.component';
 
 
 @NgModule({
@@ -40,7 +42,8 @@ import { InsideComponent } from './inside/inside.component';
     TemplateComponent,
     TemplateCardComponent,
     LoginComponent,
-    InsideComponent
+    InsideComponent,
+    ClassroomDisplayComponent
   ],
   imports: [
     BrowserModule, RadioButtonModule,
@@ -51,7 +54,8 @@ import { InsideComponent } from './inside/inside.component';
     CascadeSelectModule, InputTextModule,
     FormsModule,
     AppRoutingModule, TableModule,
-    BreadcrumbModule, DialogModule, StepperModule, TabViewModule
+    BreadcrumbModule, DialogModule, StepperModule, TabViewModule,
+    ToolbarModule
   ],
   providers: [
     provideClientHydration()
