@@ -23,6 +23,8 @@ public class Session implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String title;
+
 
     private String sessionCode;
 
@@ -43,6 +45,8 @@ public class Session implements Serializable {
 
     @ManyToOne
     private Classroom classroomSH;
+
+
     @OneToMany(mappedBy = "sessionSB")
     private List<Submission> Submissions;
 

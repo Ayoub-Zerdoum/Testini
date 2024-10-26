@@ -1,16 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Session } from '../entities/Session';
+import { Result } from '../entities/Result';
 
-interface Student {
-  name: string;
-  note: number;
-  rg: number;
-}
-
-interface Test {
-  testName: string;
-  coefficient: number;
-  students: Student[];
-}
 
 @Component({
   selector: 'app-report-card',
@@ -18,77 +9,62 @@ interface Test {
   styleUrls: ['./report-card.component.scss']
 })
 export class ReportCardComponent implements OnInit {
-
   breadcrumbItems!: any[];
-  tests!: Test[]; // Define the type for the tests array
-  students!: any[];
+  sessions!: Session[];
+  students!: { email: string;[sessionTitle: string]: number | string }[];
+  displayDialog: boolean = false;
+  selectedResult: { id: number; email: string } | null = null;
 
   ngOnInit() {
     this.breadcrumbItems = [
       { label: 'Tableau de bord' },
-      { label: 'Récapitulatif des notes' },
+      { label: 'Récapitulatif des scores' },
       { label: 'MS - Mathématiques - 2ème Période' }
     ];
 
-    // Example of test structure
-    this.tests = [
+    this.sessions = [
       {
-        testName: 'Test 1 - Algebra',
-        coefficient: 2,
-        students: [
-          { name: 'AUGER Avent', note: 17.00, rg: 1 },
-          { name: 'PAYAN Mila', note: 11.00, rg: 2 },
-          { name: 'Dali', note: 20, rg: 1 },
+        id: 1,
+        title: 'Session 1 - Algebra',
+        results: [
+          { id: 1, studentEmail: 'avent.auger@example.com', score: 17 },
+          { id: 2, studentEmail: 'mila.payan@example.com', score: 11 },
+          { id: 3, studentEmail: 'dali@example.com', score: 20 }
         ]
       },
       {
-        testName: 'Test 2 - Geometry',
-        coefficient: 3,
-        students: [
-          { name: 'AUGER Avent', note: 15.00, rg: 1 },
-          { name: 'PAYAN Mila', note: 12.00, rg: 2 },
-          { name: ' Mila', note: 12.00, rg: 2 },
-          { name: 'Dali', note: 20, rg: 1 },
-        ]
-      },
-      {
-        testName: 'Test 2 - Geometry',
-        coefficient: 3,
-        students: [
-          { name: 'AUGER Avent', note: 15.00, rg: 1 },
-          { name: 'PAYAN Mila', note: 12.00, rg: 2 },
-          { name: ' Mila', note: 12.00, rg: 2 },
-          { name: 'Dali', note: 20, rg: 1 },
-        ]
-      },
-      {
-        testName: 'Test 4 - Geometry',
-        coefficient: 3,
-        students: [
-          { name: 'Dali', note: 20, rg: 1 },
-          { name: 'Munir', note: -1, rg: 2 },
-          { name: 'Mejdi', note: 2.00, rg: 2 }
+        id: 2,
+        title: 'Session 2 - Geometry',
+        results: [
+          { id: 1, studentEmail: 'avent.auger@example.com', score: 15 },
+          { id: 2, studentEmail: 'mila.payan@example.com', score: 12 },
+          { id: 4, studentEmail: 'munir@example.com', score: -1 }
         ]
       }
     ];
 
-    // Step 1: Extract all unique students from all tests
-    const allStudentsSet = new Set<string>();
-    this.tests.forEach((test: Test) => {
-      test.students.forEach((student: Student) => {
-        allStudentsSet.add(student.name);
+    const allStudentEmails = new Set<string>();
+    this.sessions.forEach((session) => {
+      session.results.forEach((result) => {
+        allStudentEmails.add(result.studentEmail);
       });
     });
 
-    // Convert the set to an array of unique students
-    this.students = Array.from(allStudentsSet).map(name => ({ name }));
-
-    // Step 2: For each student, we'll check whether they passed each test and add the result
-    this.students.forEach(student => {
-      this.tests.forEach((test: Test) => {
-        const testResult = test.students.find((s: Student) => s.name === student.name);
-        student[test.testName] = testResult ? testResult.note : 'Absent'; // Add 'Absent' if the student didn't take the test
+    this.students = Array.from(allStudentEmails).map((email) => {
+      const studentData: { email: string;[sessionTitle: string]: number | string } = { email };
+      this.sessions.forEach((session) => {
+        const result = session.results.find((r) => r.studentEmail === email);
+        studentData[session.title] = result ? result.score : 'Absent';
       });
+      return studentData;
     });
+  }
+
+  openDialogByEmail(session: Session, studentEmail: string) {
+    const result = session.results.find((r) => r.studentEmail === studentEmail);
+    if (result) {
+      this.selectedResult = { id: result.id, email: result.studentEmail };
+      this.displayDialog = true;
+    }
   }
 }
