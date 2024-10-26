@@ -1,4 +1,3 @@
-/* General container and layout */
 .report-container {
     margin: 20px;
     background-color: #f4f5f7;
@@ -7,39 +6,18 @@
     border-radius: 8px;
 }
 
-/* Flexbox layout for the two-column structure */
-.tests-container {
+.header-section {
     display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    /* Space between test cards */
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
 }
 
-.test-card {
-    flex: 1 1 calc(50% - 20px);
-    /* Each card takes up 50% of the width */
-    background-color: #ffffff;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 15px;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-/* Table Header */
-.table-header {
+.new-session-button {
     background-color: #007ad9;
     color: white;
-    text-align: center;
-    padding: 15px 0;
-    border-radius: 3px 3px 0 0;
 }
 
-.table-header h3 {
-    margin: 0;
-    font-size: 20px;
-}
-
-/* PrimeNG Table Styling */
 .report-table .p-datatable-thead>tr>th {
     background-color: #f4f5f7;
     color: black;
@@ -53,21 +31,6 @@
     padding: 8px;
 }
 
-.report-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.report-table tr {
-    border-bottom: 1px solid #ccc;
-}
-
-.report-table th,
-.report-table td {
-    padding: 10px;
-}
-
-/* Styling for the table contents */
 .report-table td {
     background-color: #ffffff;
 }
@@ -76,7 +39,6 @@
     background-color: #f8f9fa;
 }
 
-/* Breadcrumb custom styling */
 p-breadcrumb {
     background-color: #2b2b2b;
     border-radius: 5px;
@@ -84,8 +46,4 @@ p-breadcrumb {
 
 p-breadcrumb .p-breadcrumb-item a {
     color: #007ad9;
-}
-
-p-breadcrumb .p-breadcrumb-item a:hover {
-    color: #005bb5;
 }
