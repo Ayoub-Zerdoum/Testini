@@ -92,6 +92,28 @@
     color: white;
 }
 
-.nav-list li a:hover {
+.nav-list li a:not(.magnifier-button):hover {
     background-color: #1a1f36;
 }
+
+.magnifier{
+    background-color: #ffd700;
+    color: #12172b;
+    margin-top: 100px;
+    position: absolute;
+    bottom: 0;
+    width: 230px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: width 0.5s;
+}
+
+.magnifier-button p,.magnifier-button i{
+    color: #12172b;
+    font-size: 30px;
+}
+
+.sidebar.collapsed .magnifier{
+    width: 40px;
+}
+

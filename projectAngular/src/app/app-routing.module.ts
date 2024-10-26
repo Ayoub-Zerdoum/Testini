@@ -6,6 +6,8 @@ import { HomeComponent } from './home/home.component'; // Adjust as necessary
 import { ReportCardComponent } from './report-card/report-card.component';
 import { TemplateComponent } from './template/template.component'; // Adjust as necessary
 import { ClassroomDisplayComponent } from './classroom-display/classroom-display.component';
+import { AssignementsComponent } from './assignements/assignements.component';
+import { ChallengesGalleryComponent } from './challenges-gallery/challenges-gallery.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -13,9 +15,10 @@ const routes: Routes = [
     path: 'inside', component: InsideComponent, children: [
       { path: 'home', component: HomeComponent },
       { path: 'report-card', component: ReportCardComponent },
-
+      { path: 'challenges', component: ChallengesGalleryComponent },
       { path: 'template', component: TemplateComponent },
       { path: 'classroom', component: ClassroomDisplayComponent },
+      { path: 'assignements', component: AssignementsComponent },
       { path: '', redirectTo: 'home', pathMatch: 'full' }, // Default route
     ]
   },

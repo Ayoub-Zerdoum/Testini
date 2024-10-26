@@ -25,6 +25,10 @@ export class NavbarComponent {
     return this.router.url === route;
   }
 
+  showMagnifierInstructions(){
+    
+  }
+
 }
 
 

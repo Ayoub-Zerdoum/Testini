@@ -2,9 +2,14 @@ import { NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CalendarModule } from 'primeng/calendar';
-import { FormsModule } from '@angular/forms';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { ButtonModule } from 'primeng/button';
+import { FormsModule } from '@angular/forms'; // <-- NgModel lives here
+
+import { TagModule } from 'primeng/tag'; // Import PrimeNG TagModule
+
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+
 
 import { CascadeSelectModule } from 'primeng/cascadeselect';
 import { TableModule } from 'primeng/table';
@@ -17,6 +22,10 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { CheckboxModule } from 'primeng/checkbox';
 import { ImageModule } from 'primeng/image';
 import { ToolbarModule } from 'primeng/toolbar';
+import { DividerModule } from 'primeng/divider';
+import { SelectButtonModule } from 'primeng/selectbutton';
+
+
 
 import { InputTextModule } from 'primeng/inputtext';
 
@@ -31,6 +40,9 @@ import { TemplateCardComponent } from './template-card/template-card.component';
 import { LoginComponent } from './login/login.component';
 import { InsideComponent } from './inside/inside.component';
 import { ClassroomDisplayComponent } from './classroom-display/classroom-display.component';
+import { ClassroomCardComponent } from './classroom-card/classroom-card.component';
+import { AssignementsComponent } from './assignements/assignements.component';
+import { ChallengesGalleryComponent } from './challenges-gallery/challenges-gallery.component';
 
 
 @NgModule({
@@ -43,19 +55,23 @@ import { ClassroomDisplayComponent } from './classroom-display/classroom-display
     TemplateCardComponent,
     LoginComponent,
     InsideComponent,
-    ClassroomDisplayComponent
+    ClassroomDisplayComponent,
+    ClassroomCardComponent,
+    AssignementsComponent,
+    ChallengesGalleryComponent
   ],
   imports: [
     BrowserModule, RadioButtonModule,
-    BrowserAnimationsModule, ImageModule,
+    BrowserAnimationsModule, ImageModule,FormsModule,
     CalendarModule, SplitButtonModule,
     ButtonModule, DropdownModule,
     AutoCompleteModule, CheckboxModule,
     CascadeSelectModule, InputTextModule,
-    FormsModule,
     AppRoutingModule, TableModule,
     BreadcrumbModule, DialogModule, StepperModule, TabViewModule,
-    ToolbarModule
+    ToolbarModule,
+    DividerModule,
+    SelectButtonModule, TagModule
   ],
   providers: [
     provideClientHydration()
