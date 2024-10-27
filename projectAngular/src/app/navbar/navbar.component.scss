@@ -96,8 +96,8 @@
     background-color: #1a1f36;
 }
 
-.magnifier{
-    background-color: #ffd700;
+.magnifier {
+    background-color: #747721;
     color: #12172b;
     margin-top: 100px;
     position: absolute;
@@ -108,12 +108,12 @@
     transition: width 0.5s;
 }
 
-.magnifier-button p,.magnifier-button i{
+.magnifier-button p,
+.magnifier-button i {
     color: #12172b;
     font-size: 30px;
 }
 
-.sidebar.collapsed .magnifier{
+.sidebar.collapsed .magnifier {
     width: 40px;
 }
-

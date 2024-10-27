@@ -62,7 +62,7 @@ import { ChallengesGalleryComponent } from './challenges-gallery/challenges-gall
   ],
   imports: [
     BrowserModule, RadioButtonModule,
-    BrowserAnimationsModule, ImageModule,FormsModule,
+    BrowserAnimationsModule, ImageModule, FormsModule,
     CalendarModule, SplitButtonModule,
     ButtonModule, DropdownModule,
     AutoCompleteModule, CheckboxModule,

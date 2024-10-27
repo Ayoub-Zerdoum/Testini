@@ -47,3 +47,42 @@ p-breadcrumb {
 p-breadcrumb .p-breadcrumb-item a {
     color: #007ad9;
 }
+
+
+
+::ng-deep .p-dialog .p-dialog-header {
+    background-color: #007ad9;
+    color: white;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+::ng-deep .p-dialog .p-dialog-content {
+    padding: 20px;
+    background-color: #f9f9fb;
+    border-radius: 8px;
+}
+
+::ng-deep .p-dialog .p-dialog-footer {
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
+    border-top: 1px solid #ddd;
+}
+
+.merge-dialog-label {
+    font-weight: bold;
+    color: #333;
+    margin-top: 10px;
+}
+
+.merge-dialog-input {
+    margin-bottom: 10px;
+}
+
+.merge-submit-button {
+    background-color: #007ad9;
+    color: white;
+    border-radius: 5px;
+    font-weight: bold;
+}
