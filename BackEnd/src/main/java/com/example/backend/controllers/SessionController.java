@@ -1,9 +1,9 @@
-package com.example.bachend.controllers;
+package com.example.backend.controllers;
 
 import com.example.backend.services.SessionService;
 
-import DTO.SessionDTO;
-import Mapper.SessionMapper;
+import com.example.backend.DTO.SessionDTO;
+import com.example.backend.Mapper.SessionMapper;
 
 import com.example.backend.entites.Session;
 import lombok.RequiredArgsConstructor;

@@ -1,8 +1,10 @@
-package Mapper;
+package com.example.backend.Mapper;
 
 
-import DTO.*;
 
+
+import com.example.backend.DTO.SessionDTO;
+import com.example.backend.DTO.SubmessionDTO;
 import org.springframework.stereotype.Component;
 
 import com.example.backend.entites.Session;
@@ -14,12 +16,12 @@ import java.util.stream.Collectors;
 @Component
 public class SessionMapper {
 
-    public DTO.SessionDTO toSessionDTO(Session session) {
+    public SessionDTO toSessionDTO(Session session) {
         List<SubmessionDTO> submissionDTOs = session.getSubmissions().stream()
                 .map(this::toSubmissionDTO)
                 .collect(Collectors.toList());
         
-        return new DTO.SessionDTO(
+        return new SessionDTO(
                 session.getId(),
                 session.getTitle(),
                 submissionDTOs
