@@ -1,3 +1,39 @@
+<p-dialog header="Merge Sessions" [(visible)]="mergeSessionsDialog" [modal]="true" [style]="{ width: '50vw' }">
+    <div>
+        <p-autoComplete [(ngModel)]="selectedNames" [suggestions]="sessionSuggestions" [dropdown]="true"
+            multiple="multiple" (completeMethod)="search($event)" (ngModelChange)="onSessionSelected()"
+            [style]="{width: '100%'}" placeholder="Choose Names">
+        </p-autoComplete>
+
+
+
+        <div style="padding-bottom: 10vh ;">
+            <p-dropdown [(ngModel)]="selectedOperation" [options]="operationOptions" placeholder="Select Operation"
+                [style]="{ width: '100%'  }"></p-dropdown>
+        </div>
+
+
+
+
+
+
+
+        <div *ngIf="selectedOperation === 'Coef Special'">
+            <label *ngFor="let session of selectedSessions" [attr.for]="session.title">
+                {{ session.title }} Coef:
+                <input pInputText type="number" [(ngModel)]="coefficients[session.title]" [attr.id]="session.title"
+                    [style]="{ width: '100%' }" placeholder="Enter Coefficient" />
+
+
+            </label>
+        </div>
+
+        <p-button label="Submit" (click)="logSelectedOptions()"></p-button>
+    </div>
+</p-dialog>
+
+
+
 <div class="report-container">
     <div class="header-section">
         <p-breadcrumb [model]="breadcrumbItems"></p-breadcrumb>
@@ -6,6 +42,8 @@
         </h2>
         <button pButton label="New Session" icon="pi pi-plus" class="new-session-button"
             style="margin: 10px 0;"></button>
+        <button pButton label="Merge Sessions" class="new-session-button" style="margin: 10px 0;"
+            (click)="openMergeDialog()"></button>
     </div>
 
     <p-table [value]="students" class="report-table" [responsiveLayout]="'scroll'">

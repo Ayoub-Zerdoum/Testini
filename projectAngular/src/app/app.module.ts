@@ -64,7 +64,7 @@ import { QuizType1Component } from './quiz-type1/quiz-type1.component';
   ],
   imports: [
     BrowserModule, RadioButtonModule,
-    BrowserAnimationsModule, ImageModule,FormsModule,
+    BrowserAnimationsModule, ImageModule, FormsModule,
     CalendarModule, SplitButtonModule,
     ButtonModule, DropdownModule,
     AutoCompleteModule, CheckboxModule,
