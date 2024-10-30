@@ -8,9 +8,11 @@ import { TemplateComponent } from './template/template.component'; // Adjust as 
 import { ClassroomDisplayComponent } from './classroom-display/classroom-display.component';
 import { AssignementsComponent } from './assignements/assignements.component';
 import { ChallengesGalleryComponent } from './challenges-gallery/challenges-gallery.component';
+import { QuizType1Component } from './quiz-type1/quiz-type1.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
+  { path: 'app-quiz-type1', component: QuizType1Component},
   {
     path: 'inside', component: InsideComponent, children: [
       { path: 'home', component: HomeComponent },
@@ -22,7 +24,7 @@ const routes: Routes = [
       { path: '', redirectTo: 'home', pathMatch: 'full' }, // Default route
     ]
   },
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '', redirectTo: '/app-quiz-type1', pathMatch: 'full' },
   { path: '**', redirectTo: '/login' }
 ];
 

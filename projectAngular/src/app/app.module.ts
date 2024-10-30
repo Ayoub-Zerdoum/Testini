@@ -43,6 +43,7 @@ import { ClassroomDisplayComponent } from './classroom-display/classroom-display
 import { ClassroomCardComponent } from './classroom-card/classroom-card.component';
 import { AssignementsComponent } from './assignements/assignements.component';
 import { ChallengesGalleryComponent } from './challenges-gallery/challenges-gallery.component';
+import { QuizType1Component } from './quiz-type1/quiz-type1.component';
 
 
 @NgModule({
@@ -58,7 +59,8 @@ import { ChallengesGalleryComponent } from './challenges-gallery/challenges-gall
     ClassroomDisplayComponent,
     ClassroomCardComponent,
     AssignementsComponent,
-    ChallengesGalleryComponent
+    ChallengesGalleryComponent,
+    QuizType1Component
   ],
   imports: [
     BrowserModule, RadioButtonModule,
