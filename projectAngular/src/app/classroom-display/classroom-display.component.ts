@@ -6,5 +6,10 @@ import { Component } from '@angular/core';
   styleUrl: './classroom-display.component.scss'
 })
 export class ClassroomDisplayComponent {
+  menuItems: string[] = ['All', 'Newest', 'Closest Test'];
+  selectedItem: string | null = 'All';
 
+  selectMenu(item: string) {
+    this.selectedItem = item; // Set the selected item
+  }
 }

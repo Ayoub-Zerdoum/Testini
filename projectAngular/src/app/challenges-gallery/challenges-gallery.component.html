@@ -1,4 +1,4 @@
-<div class="template-gallery">
+<div class="challenges-gallery">
     <h1>Template Gallery</h1>
 
     <div class="filters">
@@ -12,17 +12,12 @@
             <p-dropdown id="type" [options]="types" [(ngModel)]="selectedType"></p-dropdown>
         </div>
 
-        <div class="filter-item">
-            <label for="level">Level</label>
-            <p-dropdown id="level" [options]="levels" [(ngModel)]="selectedLevel"></p-dropdown>
-        </div>
-
         <div class="filter-item time-limited">
             <label for="time-limited">Time limited</label>
             <p-checkbox [(ngModel)]="isTimeLimited" binary="true"></p-checkbox>
         </div>
 
-        <div class="filter-item">
+        <div class="filter-item">n
             <label for="sort-by">Sort By</label>
             <p-dropdown id="sort-by" [options]="sortOptions" [(ngModel)]="selectedSort"></p-dropdown>
         </div>
@@ -39,16 +34,5 @@
             <p-radioButton name="displayMode" value="C"  label="C"></p-radioButton>
         </div>
     </div>
-    <hr>
-    <div class="cards">
-        <app-template-card></app-template-card>
-        <app-template-card></app-template-card>
-        <app-template-card></app-template-card>
-        <app-template-card></app-template-card>
-        <app-template-card></app-template-card>
-        <app-template-card></app-template-card>
 
-
-
-    </div>
 </div>

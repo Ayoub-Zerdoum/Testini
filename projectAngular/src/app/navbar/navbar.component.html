@@ -24,13 +24,13 @@
                 <p>Templates</p>
             </a>
         </li>
-        <li [ngClass]="{ 'active': isActive('/challenges') }">
-            <a routerLink="/challenges">
+        <li [ngClass]="{ 'active': isActive('/inside/challenges') }">
+            <a href="inside/challenges">
                 <img src="../../assets/chalange.png" alt="menu">
                 <p>Your challenges</p>
             </a>
         </li>
-        <li>
+        <li [ngClass]="{ 'active': isActive('/inside/classroom') }">
             <a href="inside/classroom">
                 <img src="../../assets/book.png" alt="menu">
                 <p>Assignments</p>
@@ -40,6 +40,18 @@
             <a href="inside/report-card">
                 <img src="../../assets/materiel.png" alt="menu">
                 <p>Materia</p>
+            </a>
+        </li>
+        <li [ngClass]="{ 'active': isActive('/inside/assignements') }">
+            <a href="inside/assignements">
+                <img src="../../assets/materiel.png" alt="menu">
+                <p>TEST</p>
+            </a>
+        </li>
+        <li class="magnifier">
+            <a (click)="showMagnifierInstructions()" class="magnifier-button">
+                <i class="pi pi-search"></i>
+                <p>Magnifier</p>
             </a>
         </li>
     </ul>

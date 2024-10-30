@@ -1,0 +1,29 @@
+<div class="general">
+    <div class="card">
+        <div class="card-title" [ngStyle]="{ 'background-color': titleColor }">{{ title }}</div>
+        <div class="card-content">
+            <div class="info-section">
+                <div class="info-item">
+                    <i class="pi pi-users"></i> <!-- People icon -->
+                    <span>{{ studentCount }}</span> <!-- Number of students -->
+                </div>
+                <div class="info-item">
+                    <i class="pi pi-book"></i> <!-- Books icon -->
+                    <span>{{ assignmentCount }}</span> <!-- Number of assignments -->
+                </div>
+                <div class="info-item">
+                    <span>Created:</span>
+                    <span>{{ creationDate }}</span> <!-- Date of creation -->
+                </div>
+            </div>
+
+            <hr style="border: 0; border-top: 1px solid #e0e0e0; margin: 0;">
+
+            <div class="test-info">
+                <span style="font-weight: bold;">Next Test:</span>
+                <span class="test-date">{{ nextTestDate }}</span> <!-- Date for the next test -->
+            </div>
+            <div class="test-title" [ngStyle]="{ 'color': titleColor }">{{ testTitle }}</div>
+        </div>
+    </div>
+</div>

@@ -1,3 +1,7 @@
+.toolbar{
+    padding: 0px;
+}
+
 .title-search{
     display: block;
 }
@@ -10,10 +14,17 @@
     padding: 5px 5px 5px 32px;
 }
 
-.toolbar{
-    padding: 0px;
+::ng-deep .p-ripple{
+    padding: 5px;
 }
 
+.title-search > div.btn-container > span{
+    margin-left: 10px;
+}
+.btn-container{
+    display: flex;
+
+}
 
 ::ng-deep .p-toolbar{
     padding: 5px 15px;
@@ -42,15 +53,4 @@
 .menu-item.selected {
     color: #0062ff;                /* Blue color for selected item */
     border-bottom: 3px solid #0062ff; /* Blue underline for selected item */
-}
-
-
-/********* cards **************/
-.cards {
-    display: flex;
-    justify-content: space-evenly;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-top: 20px;
-
 }
