@@ -1,14 +1,12 @@
-package com.example.backend.Mapper;
+package com.example.backend.mappers;
 
 
 
-
-import com.example.backend.DTO.SessionDTO;
-import com.example.backend.DTO.SubmessionDTO;
-import org.springframework.stereotype.Component;
-
+import com.example.backend.dtos.SessionDTO;
+import com.example.backend.dtos.SubmessionDTO;
 import com.example.backend.entites.Session;
 import com.example.backend.entites.Submission;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
