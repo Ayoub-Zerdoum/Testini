@@ -8,6 +8,8 @@ import { FormsModule } from '@angular/forms'; // <-- NgModel lives here
 
 import { TagModule } from 'primeng/tag'; // Import PrimeNG TagModule
 
+import { HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http';
+
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 
@@ -24,6 +26,7 @@ import { ImageModule } from 'primeng/image';
 import { ToolbarModule } from 'primeng/toolbar';
 import { DividerModule } from 'primeng/divider';
 import { SelectButtonModule } from 'primeng/selectbutton';
+
 
 
 
@@ -62,7 +65,7 @@ import { QuizType1Component } from './quiz-type1/quiz-type1.component';
     ChallengesGalleryComponent,
     QuizType1Component
   ],
-  imports: [
+  imports: [HttpClientModule,
     BrowserModule, RadioButtonModule,
     BrowserAnimationsModule, ImageModule, FormsModule,
     CalendarModule, SplitButtonModule,
@@ -76,7 +79,8 @@ import { QuizType1Component } from './quiz-type1/quiz-type1.component';
     SelectButtonModule, TagModule
   ],
   providers: [
-    provideClientHydration()
+    provideClientHydration(), provideHttpClient(withFetch())
+
   ],
   bootstrap: [AppComponent]
 })

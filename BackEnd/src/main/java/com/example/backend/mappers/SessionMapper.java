@@ -3,7 +3,7 @@ package com.example.backend.mappers;
 
 
 import com.example.backend.dtos.SessionDTO;
-import com.example.backend.dtos.SubmessionDTO;
+import com.example.backend.dtos.Result;
 import com.example.backend.entites.Session;
 import com.example.backend.entites.Submission;
 import org.springframework.stereotype.Component;
@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 public class SessionMapper {
 
     public SessionDTO toSessionDTO(Session session) {
-        List<SubmessionDTO> submissionDTOs = session.getSubmissions().stream()
+        List<Result> submissionDTOs = session.getSubmissions().stream()
                 .map(this::toSubmissionDTO)
                 .collect(Collectors.toList());
         
@@ -26,8 +26,8 @@ public class SessionMapper {
         );
     }
 
-    private SubmessionDTO toSubmissionDTO(Submission submission) {
-        return new SubmessionDTO(
+    private Result toSubmissionDTO(Submission submission) {
+        return new Result(
                 submission.getId(),
                 submission.getScore(),
                 submission.getStudentEmail()

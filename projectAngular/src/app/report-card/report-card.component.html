@@ -1,5 +1,10 @@
 <p-dialog header="Merge Sessions" [(visible)]="mergeSessionsDialog" [modal]="true" [style]="{ width: '50vw' }">
     <div>
+        <div style="padding-bottom: 2vh;">
+            <label for="mergeTitle">Title:</label>
+            <input pInputText type="text" [(ngModel)]="mergeTitle" [style]="{ width: '100%' }"
+                placeholder="Enter Title" />
+        </div>
         <p-autoComplete [(ngModel)]="selectedNames" [suggestions]="sessionSuggestions" [dropdown]="true"
             multiple="multiple" (completeMethod)="search($event)" (ngModelChange)="onSessionSelected()"
             [style]="{width: '100%'}" placeholder="Choose Names">
