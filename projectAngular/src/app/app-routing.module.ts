@@ -9,6 +9,8 @@ import { ClassroomDisplayComponent } from './classroom-display/classroom-display
 import { AssignementsComponent } from './assignements/assignements.component';
 import { ChallengesGalleryComponent } from './challenges-gallery/challenges-gallery.component';
 import { QuizType1Component } from './quiz-type1/quiz-type1.component';
+import { ChallengeCreatorComponent } from './challenge-creator/challenge-creator.component';
+
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -21,10 +23,11 @@ const routes: Routes = [
       { path: 'template', component: TemplateComponent },
       { path: 'classroom', component: ClassroomDisplayComponent },
       { path: 'assignements', component: AssignementsComponent },
+      { path: 'challenge-creator/:id', component: ChallengeCreatorComponent },
       { path: '', redirectTo: 'home', pathMatch: 'full' }, // Default route
     ]
   },
-  { path: '', redirectTo: '/app-quiz-type1', pathMatch: 'full' },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: '**', redirectTo: '/login' }
 ];
 

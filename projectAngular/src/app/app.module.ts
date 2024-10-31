@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms'; // <-- NgModel lives here
 
 import { TagModule } from 'primeng/tag'; // Import PrimeNG TagModule
 
+
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 
@@ -24,6 +25,8 @@ import { ImageModule } from 'primeng/image';
 import { ToolbarModule } from 'primeng/toolbar';
 import { DividerModule } from 'primeng/divider';
 import { SelectButtonModule } from 'primeng/selectbutton';
+import { SplitterModule } from 'primeng/splitter';
+import { DragDropModule } from 'primeng/dragdrop';
 
 
 
@@ -44,6 +47,9 @@ import { ClassroomCardComponent } from './classroom-card/classroom-card.componen
 import { AssignementsComponent } from './assignements/assignements.component';
 import { ChallengesGalleryComponent } from './challenges-gallery/challenges-gallery.component';
 import { QuizType1Component } from './quiz-type1/quiz-type1.component';
+import { ChallengeCreatorComponent } from './challenge-creator/challenge-creator.component';
+import { Quiz1Component } from './questions/quiz1/quiz1.component';
+
 
 
 @NgModule({
@@ -60,7 +66,9 @@ import { QuizType1Component } from './quiz-type1/quiz-type1.component';
     ClassroomCardComponent,
     AssignementsComponent,
     ChallengesGalleryComponent,
-    QuizType1Component
+    QuizType1Component,
+    ChallengeCreatorComponent,
+    Quiz1Component
   ],
   imports: [
     BrowserModule, RadioButtonModule,
@@ -73,7 +81,8 @@ import { QuizType1Component } from './quiz-type1/quiz-type1.component';
     BreadcrumbModule, DialogModule, StepperModule, TabViewModule,
     ToolbarModule,
     DividerModule,
-    SelectButtonModule, TagModule
+    SelectButtonModule, TagModule,
+    SplitterModule, DragDropModule
   ],
   providers: [
     provideClientHydration()

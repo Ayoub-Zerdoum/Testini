@@ -1,0 +1,79 @@
+<ng-container [ngSwitch]="type">
+    <ng-container *ngSwitchCase="'Quiz'" [ngSwitch]="mode">
+        <div class="container mode-view" *ngSwitchCase="'view'">
+            <p class="question-text">{{ number }}. {{ quizDataView.text }}</p>
+            <div class="radio-group">
+                <label *ngFor="let option of quizDataView.options">
+                <input type="radio" name="quizOption" disabled/> {{ option }}
+                </label>
+            </div>
+        </div>
+        <!-- Mode: Creation -->
+        <div class="container mode-creation" *ngSwitchCase="'creation'">
+            <div class="p-toolbar-group-start question-container">
+                <div>Question:</div>
+                <span class="p-input-icon-left">
+                    <input pInputText 
+                    placeholder="Search" 
+                    type="text" 
+                    [(ngModel)]="question.data.text" 
+                    placeholder="Enter your question here" 
+                    (ngModelChange)="updateQuestionText($event)" 
+                    class="question-input"/>
+                </span>
+            </div>
+            
+            <div class="options-part">
+                <p>Options:</p>
+                <div class="options-container">
+                <div *ngFor="let option of question.data.options; let i = index;trackBy: trackByIndex">
+                    <input pInputText
+                    type="text" 
+                    [(ngModel)]="question.data.options[i]" 
+                    (ngModelChange)="updateOption(i, $event)" 
+                    placeholder="Option {{ i + 1 }}" 
+                    class="option-input" />
+                    <label>
+                    <input 
+                        type="radio" 
+                        name="correctOption" 
+                        [value]="i" 
+                        [(ngModel)]="question.data.correctAnswerIndex" />
+                    Correct Answer
+                    </label>
+                </div>
+                </div>
+                <div></div>
+                <p-button class="add-option-btn" (click)="addOption()">Add Option</p-button>
+            </div>
+            
+        </div>
+  
+        <!-- Mode: Ask -->
+    <div class="container mode-ask" *ngSwitchCase="'ask'">
+        <p>{{ questionData.number }}. {{ questionData.data.text }}</p>
+        <div class="radio-group">
+            <label *ngFor="let option of questionData.data.options; let i = index">
+                <input 
+                    type="radio" 
+                    name="quizOption" 
+                    [value]="i" 
+                    [(ngModel)]="selectedAnswer" /> 
+                {{ option }}
+            </label>
+        </div>
+    </div>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'Q/A'">
+      <h4>{{ template }}</h4>
+      <p>Q: {{ questionData?.question }}</p>
+      <p>A: {{ questionData?.answer }}</p>
+    </ng-container>
+
+    <!-- Add more question types as needed -->
+    
+    <ng-container *ngSwitchDefault>
+      <p>Unknown question type.</p>
+    </ng-container>
+  </ng-container>

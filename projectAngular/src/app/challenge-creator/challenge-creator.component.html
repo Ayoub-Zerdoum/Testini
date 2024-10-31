@@ -1,0 +1,142 @@
+<div class="general">
+    <p-splitter 
+    [panelSizes]="[25, 55 ,20]" 
+    styleClass="mb-5">
+    <ng-template pTemplate>
+        <div class="col flex align-items-center justify-content-center container-split">
+            <h1>Questions</h1>
+            <p-toolbar class="toolbar">
+                
+                <p-dropdown  class="p-toolbar-group-center dropdown-types"
+                    [options]="types" 
+                    [(ngModel)]="selectedType" 
+                    optionLabel="label" 
+                    [showClear]="true" 
+                    placeholder="Select a Type" />
+            </p-toolbar>
+            <ul class="question-container">
+                <app-quiz1 class="question-template" [mode]="'view'" [type]="'Quiz'" pDraggable
+                     (onDragStart)="dragStart('Quiz')" (onDragEnd)="dragEnd()"></app-quiz1>
+
+          <app-quiz1 class="question-template" [mode]="'view'" [type]="'Q/A'" pDraggable
+                     (onDragStart)="dragStart('Q/A')" (onDragEnd)="dragEnd()"></app-quiz1>
+
+          <app-quiz1 class="question-template" [mode]="'view'" [type]="'Survey'" pDraggable
+                     (onDragStart)="dragStart('survey')" (onDragEnd)="dragEnd()"></app-quiz1>
+            </ul>
+        </div>
+    </ng-template>
+    <ng-template pTemplate>
+        <div class="col flex align-items-center justify-content-center container-split">
+            <div class="card">
+                <p-stepper orientation="vertical">
+                    <!-- Stepper Panel 1 -->
+                    <p-stepperPanel header="Step 1" *ngIf="steppers[0].visible" class="stepper-0"> 
+                        <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback">
+                            <div class="stepper-content">
+                                <div class="p-2 border-1 surface-border border-round w-15rem dropZone" pDroppable (onDrop)="drop(0)">
+                                    <p class="text-center surface-border border-bottom-1">Drop Zone for {{ steppers[0].header }}</p>
+                                    <app-quiz1 *ngIf="steppers[0].question" class="question-template" 
+                                        [number]="0" 
+                                        [mode]="'creation'" 
+                                        [type]="steppers[0].question.type"
+                                        (questionChange)="onQuestionChange($event)"></app-quiz1>
+                                        <p-divider />
+                                        <p class="text-center surface-border border-bottom-1">Preview</p>
+                                    <!-- Ask Mode -->
+                                    <app-quiz1 *ngIf="steppers[0].question"
+                                    [number]="0" 
+                                    [mode]="'ask'" 
+                                    [type]="steppers[0].question.type"
+                                    [questionData]="steppers[0].question">
+                                </app-quiz1>
+                                </div>
+                                <div class="button-group btn-container-stepper">
+                                    <p-button class="btn-stepper" label="Next" (onClick)="nextCallback.emit()" />
+                                    <p-button class="btn-stepper" label="Add Step" (onClick)="addStepper(0)" />
+                                </div>
+                            </div>
+                        </ng-template>
+                    </p-stepperPanel>
+
+                    <!-- Stepper Panel 2 -->
+                    <p-stepperPanel header="Step 2" *ngIf="steppers[1].visible" class="stepper-1">
+                        <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback">
+                            <div class="stepper-content">
+                                <div class="p-2 border-1 surface-border border-round w-15rem dropZone" pDroppable (onDrop)="drop(1)">
+                                    <p class="text-center surface-border border-bottom-1">Drop Zone for {{ steppers[1].header }}</p>
+                                    <app-quiz1 *ngIf="steppers[1].question" class="question-template" 
+                                        [mode]="steppers[1].question.mode" 
+                                        [type]="steppers[1].question.type"></app-quiz1>
+                                </div>
+                                <div class="button-group">
+                                    <p-button label="Back" (onClick)="prevCallback.emit()" />
+                                    <p-button label="Next" (onClick)="nextCallback.emit()" />
+                                    <p-button label="Add Step" (onClick)="steppers[2].visible = true" />
+                                </div>
+                            </div>
+                        </ng-template>
+                    </p-stepperPanel>
+
+                    <!-- Stepper Panel 3 -->
+                    <p-stepperPanel header="Step 3" *ngIf="steppers[0].visible" class="stepper-3"> 
+                        <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback">
+                            <div class="stepper-content">
+                                <div class="p-2 border-1 surface-border border-round w-15rem dropZone" pDroppable (onDrop)="drop(0)">
+                                    <p class="text-center surface-border border-bottom-1">Drop Zone for {{ steppers[3].header }}</p>
+                                    <app-quiz1 *ngIf="steppers[0].question" class="question-template" 
+                                        [number]="0" 
+                                        [mode]="'creation'" 
+                                        [type]="steppers[1].question?.type ?? ''"
+
+                                        (questionChange)="onQuestionChange($event)"></app-quiz1>
+                                        <p-divider />
+                                        <p class="text-center surface-border border-bottom-1">Preview</p>
+                                    <!-- Ask Mode -->
+                                    <app-quiz1 *ngIf="steppers[3].question"
+                                    [number]="3" 
+                                    [mode]="'ask'" 
+                                    [type]="steppers[3].question.type"
+                                    [questionData]="steppers[3].question">
+                                </app-quiz1>
+                                </div>
+                                <div class="button-group btn-container-stepper">
+                                    <p-button class="btn-stepper" label="Next" (onClick)="nextCallback.emit()" />
+                                    <p-button class="btn-stepper" label="Add Step" (onClick)="addStepper(0)" />
+                                </div>
+                            </div>
+                        </ng-template>
+                    </p-stepperPanel>
+
+                    <!-- Stepper Panel 2 -->
+                    <p-stepperPanel header="Step 4" *ngIf="steppers[1].visible" class="stepper-4">
+                        <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback">
+                            <div class="stepper-content">
+                                <div class="p-2 border-1 surface-border border-round w-15rem dropZone" pDroppable (onDrop)="drop(1)">
+                                    <p class="text-center surface-border border-bottom-1">Drop Zone for {{ steppers[4].header }}</p>
+                                    <app-quiz1 *ngIf="steppers[1].question" class="question-template" 
+                                        [mode]="steppers[1].question.mode" 
+                                        [type]="steppers[1].question.type"></app-quiz1>
+                                </div>
+                                <div class="button-group">
+                                    <p-button label="Back" (onClick)="prevCallback.emit()" />
+                                    <p-button label="Next" (onClick)="nextCallback.emit()" />
+                                    <p-button label="Add Step" (onClick)="steppers[2].visible = true" />
+                                </div>
+                            </div>
+                        </ng-template>
+                    </p-stepperPanel>
+                    
+                </p-stepper>
+                  
+                  
+            </div>
+        </div>
+    </ng-template>
+    <ng-template pTemplate>
+        <div class="col flex align-items-center justify-content-center container-split">
+            <h1>Templates</h1>
+        </div>
+    </ng-template>
+</p-splitter>
+</div>
