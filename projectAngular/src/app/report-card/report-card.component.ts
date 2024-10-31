@@ -1,7 +1,7 @@
-
 import { Component, OnInit } from '@angular/core';
-import { Session } from '../entities/Session';
-import { Result } from '../entities/Result';
+import { SessionDTO } from '../entities/Session';
+import { SessionService } from '../services/session.service';
+import { MergeDTO, OperationM } from '../entities/MergeDTO';
 
 @Component({
   selector: 'app-report-card',
@@ -10,17 +10,20 @@ import { Result } from '../entities/Result';
 })
 export class ReportCardComponent implements OnInit {
   breadcrumbItems!: any[];
-  sessions!: Session[];
+  sessions!: SessionDTO[];
   students!: { email: string;[sessionTitle: string]: number | string }[];
   displayDialog: boolean = false;
   selectedResult: { id: number; email: string } | null = null;
   mergeSessionsDialog: boolean = false;
-  selectedSessions: Session[] = [];
+  selectedSessions: SessionDTO[] = [];
   selectedNames: string[] = [];
   selectedOperation: string = '';
   coefficients: { [sessionTitle: string]: number } = {}; // Coefficient input values for each session
   sessionSuggestions: string[] = []; // Suggestions for autocomplete
   operationOptions: string[] = ['Max', 'Avg', 'Coef Special'];
+  mergeTitle: string = '';
+
+  constructor(private sessionService: SessionService) { }
 
   ngOnInit() {
     this.breadcrumbItems = [
@@ -29,23 +32,32 @@ export class ReportCardComponent implements OnInit {
       { label: 'MS - Mathématiques - 2ème Période' }
     ];
 
-    this.sessions = [
-      { id: 1, title: 'Session 1 - Algebra', results: [{ id: 1, studentEmail: 'avent.auger@example.com', score: 17 }, { id: 2, studentEmail: 'mila.payan@example.com', score: 11 }, { id: 3, studentEmail: 'dali@example.com', score: 20 }] },
-      { id: 2, title: 'Session 2 - Geometry', results: [{ id: 1, studentEmail: 'avent.auger@example.com', score: 15 }, { id: 2, studentEmail: 'mila.payan@example.com', score: 12 }, { id: 4, studentEmail: 'munir@example.com', score: -1 }] }
-    ];
+    this.loadSessions();
+  }
 
-    this.sessionSuggestions = this.sessions.map(session => session.title);
+  loadSessions() {
+    this.sessionService.getAllSessions().subscribe(
+      (sessions: SessionDTO[]) => {
+        this.sessions = sessions;
 
-    const allStudentEmails = new Set<string>();
-    this.sessions.forEach(session => session.results.forEach(result => allStudentEmails.add(result.studentEmail)));
-    this.students = Array.from(allStudentEmails).map(email => {
-      const studentData: { email: string;[sessionTitle: string]: number | string } = { email };
-      this.sessions.forEach(session => {
-        const result = session.results.find(r => r.studentEmail === email);
-        studentData[session.title] = result ? result.score : 'Absent';
-      });
-      return studentData;
-    });
+        this.sessionSuggestions = sessions.map(session => session.title);
+
+        const allStudentEmails = new Set<string>();
+        sessions.forEach(session =>
+          session.results.forEach(result => allStudentEmails.add(result.studentEmail))
+        );
+
+        this.students = Array.from(allStudentEmails).map(email => {
+          const studentData: { email: string;[sessionTitle: string]: number | string } = { email };
+          sessions.forEach(session => {
+            const result = session.results.find(r => r.studentEmail === email);
+            studentData[session.title] = result ? result.score : 'Absent';
+          });
+          return studentData;
+        });
+      },
+      error => console.error('Error loading sessions:', error)
+    );
   }
 
   openMergeDialog() {
@@ -54,6 +66,7 @@ export class ReportCardComponent implements OnInit {
     this.selectedNames = [];
     this.selectedOperation = '';
     this.coefficients = {};
+    this.mergeTitle = '';
   }
 
   onSessionSelected() {
@@ -61,12 +74,20 @@ export class ReportCardComponent implements OnInit {
       this.selectedNames.includes(session.title)
     );
   }
+
   logSelectedOptions() {
-    const selectedSessionIds = this.selectedSessions.map(session => session.id);
-    console.log('Selected Names:', this.selectedNames);
-    console.log('Selected Sessions:', selectedSessionIds);
-    console.log('Operation:', this.selectedOperation);
-    console.log('Coefficients:', this.coefficients);
+    // Create the MergeDTO object with the selected form data
+    const mergeDTO: MergeDTO = {
+      id: 0, // Assign a default or actual ID if available
+      title: this.mergeTitle,
+      operation: this.selectedOperation as OperationM, // Cast to OperationM enum
+      iDSessions: this.selectedSessions.map(session => session.id),
+      coefSessions: this.selectedOperation === 'Coef Special'
+        ? this.selectedSessions.map(session => this.coefficients[session.title] || 1)
+        : []
+    };
+
+    console.log('MergeDTO:', mergeDTO); // Log the MergeDTO object
     this.mergeSessionsDialog = false; // Close dialog after logging
   }
 
@@ -77,8 +98,7 @@ export class ReportCardComponent implements OnInit {
       .filter(title => title.toLowerCase().includes(query));
   }
 
-
-  openDialogByEmail(session: Session, studentEmail: string) {
+  openDialogByEmail(session: SessionDTO, studentEmail: string) {
     const result = session.results.find((r) => r.studentEmail === studentEmail);
     if (result) {
       this.selectedResult = { id: result.id, email: result.studentEmail };
@@ -86,4 +106,3 @@ export class ReportCardComponent implements OnInit {
     }
   }
 }
-

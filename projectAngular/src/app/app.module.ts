@@ -30,6 +30,7 @@ import { DragDropModule } from 'primeng/dragdrop';
 
 
 
+
 import { InputTextModule } from 'primeng/inputtext';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -49,6 +50,7 @@ import { ChallengesGalleryComponent } from './challenges-gallery/challenges-gall
 import { QuizType1Component } from './quiz-type1/quiz-type1.component';
 import { ChallengeCreatorComponent } from './challenge-creator/challenge-creator.component';
 import { Quiz1Component } from './questions/quiz1/quiz1.component';
+import { HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http';
 
 
 
@@ -70,7 +72,7 @@ import { Quiz1Component } from './questions/quiz1/quiz1.component';
     ChallengeCreatorComponent,
     Quiz1Component
   ],
-  imports: [
+  imports: [HttpClientModule,
     BrowserModule, RadioButtonModule,
     BrowserAnimationsModule, ImageModule, FormsModule,
     CalendarModule, SplitButtonModule,
@@ -85,7 +87,8 @@ import { Quiz1Component } from './questions/quiz1/quiz1.component';
     SplitterModule, DragDropModule
   ],
   providers: [
-    provideClientHydration()
+    provideClientHydration(), provideHttpClient(withFetch())
+
   ],
   bootstrap: [AppComponent]
 })

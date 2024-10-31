@@ -1,6 +1,6 @@
 import { Result } from "./Result";
 
-export interface Session {
+export interface SessionDTO {
     id: number;
     title: string;
     results: Result[];
