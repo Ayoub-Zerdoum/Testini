@@ -49,9 +49,9 @@
             <button pButton label="Merge Sessions" class="merge-session-button" style="margin: 10px 0;"
                 (click)="openMergeDialog()"></button>
             <button pButton label="New Session" icon="pi pi-plus" class="new-session-button"
-            style="margin: 10px 0;"></button>
+                style="margin: 10px 0;"></button>
         </div>
-        
+
     </div>
 
     <p-table [value]="students" class="report-table" [responsiveLayout]="'scroll'">
@@ -81,6 +81,7 @@
         <div *ngIf="selectedResult">
             <p><strong>ID:</strong> {{ selectedResult.id }}</p>
             <p><strong>Email:</strong> {{ selectedResult.email }}</p>
+            <app-quiz1></app-quiz1>
         </div>
     </p-dialog>
 </div>

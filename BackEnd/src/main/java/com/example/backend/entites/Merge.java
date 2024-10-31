@@ -1,11 +1,12 @@
 package com.example.backend.entites;
 
+import com.example.backend.enums.OperationM;
+import com.example.backend.enums.Privilege;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
 
@@ -17,24 +18,29 @@ import java.util.List;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-public class Classroom implements Serializable{
+public class Merge implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String title;
 
+    private String title;
+    @Enumerated(EnumType.STRING)
+    private OperationM operation;
+    private String passworld;
     @ElementCollection
-    private List<Float> coefs;
+    private List<Long> iDSessions;
+    @ElementCollection
+    private List<Integer> coefSessions;
 
     @ManyToOne
-    private Instructor instructorCL;
-    @OneToMany(mappedBy = "classroomSH")
-    private List<Session> Session;
-    @OneToMany(mappedBy = "classroomMerge")
-    private List<Merge> mergingDetails;
+    private Classroom classroomMerge;
+
+
+
+
 
 
 }
