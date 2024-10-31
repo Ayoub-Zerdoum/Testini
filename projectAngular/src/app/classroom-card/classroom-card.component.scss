@@ -10,8 +10,13 @@
     border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     overflow: hidden;
+    cursor: pointer;
 }
 
+.card:hover{
+    transform: scale(1.05);
+    transition: transform 1s;
+}
 .card-title {
     background-color: #007bff; /* Fixed blue color for title */
     color: white;

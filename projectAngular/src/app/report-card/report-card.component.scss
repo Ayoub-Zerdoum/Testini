@@ -6,6 +6,14 @@
     border-radius: 8px;
 }
 
+.btn-container{
+    display: flex;
+    justify-content: end;
+    gap: 10px;
+}
+
+
+
 .header-section {
     display: flex;
     flex-direction: column;
@@ -16,6 +24,12 @@
 .new-session-button {
     background-color: #007ad9;
     color: white;
+}
+
+.merge-session-button{
+    background-color: rgb(19, 161, 95);
+    color: white;
+    margin-right: 20px;
 }
 
 .report-table .p-datatable-thead>tr>th {

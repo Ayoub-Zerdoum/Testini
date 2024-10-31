@@ -35,14 +35,14 @@
                         <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback">
                             <div class="stepper-content">
                                 <div class="p-2 border-1 surface-border border-round w-15rem dropZone" pDroppable (onDrop)="drop(0)">
-                                    <p class="text-center surface-border border-bottom-1">Drop Zone for {{ steppers[0].header }}</p>
+                                    <p class="text-center surface-border border-bottom-1">Drop A Question Here</p>
                                     <app-quiz1 *ngIf="steppers[0].question" class="question-template" 
                                         [number]="0" 
                                         [mode]="'creation'" 
                                         [type]="steppers[0].question.type"
                                         (questionChange)="onQuestionChange($event)"></app-quiz1>
                                         <p-divider />
-                                        <p class="text-center surface-border border-bottom-1">Preview</p>
+                                        <p class="text-center surface-border border-bottom-1">Preview the Display</p>
                                     <!-- Ask Mode -->
                                     <app-quiz1 *ngIf="steppers[0].question"
                                     [number]="0" 
@@ -64,10 +64,21 @@
                         <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback">
                             <div class="stepper-content">
                                 <div class="p-2 border-1 surface-border border-round w-15rem dropZone" pDroppable (onDrop)="drop(1)">
-                                    <p class="text-center surface-border border-bottom-1">Drop Zone for {{ steppers[1].header }}</p>
+                                    <p class="text-center surface-border border-bottom-1">Drop A Question Here</p>
                                     <app-quiz1 *ngIf="steppers[1].question" class="question-template" 
-                                        [mode]="steppers[1].question.mode" 
-                                        [type]="steppers[1].question.type"></app-quiz1>
+                                        [number]="1" 
+                                        [mode]="'creation'" 
+                                        [type]="steppers[1].question.type"
+                                        (questionChange)="onQuestionChange($event)"></app-quiz1>
+                                        <p-divider />
+                                        <p class="text-center surface-border border-bottom-1">Preview the Display</p>
+                                    <!-- Ask Mode -->
+                                    <app-quiz1 *ngIf="steppers[1].question"
+                                    [number]="1" 
+                                    [mode]="'ask'" 
+                                    [type]="steppers[1].question.type"
+                                    [questionData]="steppers[1].question">
+                                </app-quiz1>
                                 </div>
                                 <div class="button-group">
                                     <p-button label="Back" (onClick)="prevCallback.emit()" />

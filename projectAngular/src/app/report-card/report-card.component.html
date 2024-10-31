@@ -45,10 +45,13 @@
         <h2 class="subject-title">
             <i class="pi pi-check-square"></i> 2nd Period - MS - Mathematics
         </h2>
-        <button pButton label="New Session" icon="pi pi-plus" class="new-session-button"
+        <div class="btn-container">
+            <button pButton label="Merge Sessions" class="merge-session-button" style="margin: 10px 0;"
+                (click)="openMergeDialog()"></button>
+            <button pButton label="New Session" icon="pi pi-plus" class="new-session-button"
             style="margin: 10px 0;"></button>
-        <button pButton label="Merge Sessions" class="new-session-button" style="margin: 10px 0;"
-            (click)="openMergeDialog()"></button>
+        </div>
+        
     </div>
 
     <p-table [value]="students" class="report-table" [responsiveLayout]="'scroll'">
