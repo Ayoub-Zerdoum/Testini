@@ -30,24 +30,19 @@
                 <p>Your challenges</p>
             </a>
         </li>
-        <li [ngClass]="{ 'active': isActive('/inside/classroom') }">
-            <a href="inside/classroom">
+        <li [ngClass]="{ 'active': isActive('/inside/assignements') }">
+            <a href="inside/assignements">
                 <img src="../../assets/book.png" alt="menu">
                 <p>Assignments</p>
             </a>
         </li>
-        <li [ngClass]="{ 'active': isActive('/inside/report-card') }">
-            <a href="inside/report-card">
+        <li [ngClass]="{ 'active': isActive('/inside/classroom') }">
+            <a href="inside/classroom">
                 <img src="../../assets/materiel.png" alt="menu">
                 <p>Materia</p>
             </a>
         </li>
-        <li [ngClass]="{ 'active': isActive('/inside/assignements') }">
-            <a href="inside/assignements">
-                <img src="../../assets/materiel.png" alt="menu">
-                <p>TEST</p>
-            </a>
-        </li>
+        
         <li class="magnifier">
             <a (click)="showMagnifierInstructions()" class="magnifier-button">
                 <i class="pi pi-search"></i>
