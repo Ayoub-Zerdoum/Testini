@@ -29,6 +29,7 @@ export class Quiz1Component {
     number: 1,
     data: {
       text: '', // Initialize text to an empty string
+      description: '',
       options: [], // Initialize options to an empty array
       correctAnswerIndex: null // Initialize correct answer index to null
     }
@@ -39,9 +40,18 @@ export class Quiz1Component {
     mode: 'view',
     number: 1,
     text: 'What is the capital of France?',
+    description: 'this a hint , they say it is the city of light',
     options: ['Paris', 'Berlin', 'Madrid', 'Rome'],
   }
 
+  QADataView = {
+    type: 'Q/A',
+    mode: 'view',
+    number: 1,
+    question: 'How do you feel right now?',
+    description: 'you need to describe you stat of mind',
+    answer: 'i feel very inspired'
+  }
    // Add an empty option to the options array in question data
    addOption() {
     if (!Array.isArray(this.question.data.options)) {
@@ -65,6 +75,12 @@ export class Quiz1Component {
     }
   }
 
+  // Method to update the description when the user types
+updateQuestionDescr(description: string) {
+  this.question.data.description = description;
+  this.questionChange.emit(this.question); // Emit the updated question to notify any parent component
+}
+
   // Set the correct answer index
   setCorrectAnswer(index: number) {
     this.question.data.correctAnswerIndex = index;
@@ -74,5 +90,35 @@ export class Quiz1Component {
   trackByIndex(index: number, item: any): number {
     return index;
   }
+
+  // Remove an option at a specific index in question data
+removeOption(index: number) {
+  if (Array.isArray(this.question.data.options)) {
+    this.question.data.options.splice(index, 1);
+    this.questionChange.emit(this.question); // Emit the updated question
+  }
+}
+
+  // Move an option up in the list
+  moveOptionUp(index: number) {
+    if (index > 0) {
+      const temp = this.question.data.options[index];
+      this.question.data.options[index] = this.question.data.options[index - 1];
+      this.question.data.options[index - 1] = temp;
+      this.questionChange.emit(this.question); // Emit the updated question
+    }
+  }
+
+  // Move an option down in the list
+  moveOptionDown(index: number) {
+    if (index < this.question.data.options.length - 1) {
+      const temp = this.question.data.options[index];
+      this.question.data.options[index] = this.question.data.options[index + 1];
+      this.question.data.options[index + 1] = temp;
+      this.questionChange.emit(this.question); // Emit the updated question
+    }
+  }
+
+
 
 }

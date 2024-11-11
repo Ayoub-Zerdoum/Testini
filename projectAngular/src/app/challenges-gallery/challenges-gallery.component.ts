@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-challenges-gallery',
@@ -6,6 +6,8 @@ import { Component } from '@angular/core';
   styleUrl: './challenges-gallery.component.scss'
 })
 export class ChallengesGalleryComponent {
+
+
   types = [
     { label: 'Quiz', value: 'quiz' },
     { label: 'Game', value: 'game' },
@@ -30,4 +32,26 @@ export class ChallengesGalleryComponent {
   isTimeLimited: boolean = true;
   sortOrder: string = 'desc';
   displayMode: string = 'A';
+
+  panels = [
+    {
+      header: 'Header I',
+      content: 'Content I',
+      showNext: true,
+      showBack: false,
+    },
+    {
+      header: 'Header II',
+      content: 'Content II',
+      showNext: true,
+      showBack: true,
+    },
+    {
+      header: 'Header III',
+      content: 'Content III',
+      showNext: false,
+      showBack: true,
+    },
+  ];
+  
 }
