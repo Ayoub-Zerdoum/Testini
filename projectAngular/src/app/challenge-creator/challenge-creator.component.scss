@@ -35,8 +35,8 @@
     background-color: #F5F5F5;
     border: 1px solid black;
     border-radius: 10px;
-    text-align: center;
     margin-bottom: 10px;
+    overflow: hidden;
 }
 
 .container-split h1{
@@ -52,8 +52,130 @@
     font-weight: 300;
 }
 
+.header-comment{
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.header-comment .comment{
+    position: relative;
+    width: fit-content;
+    padding: 5px 10px;
+    background-color: green;
+    color: white;
+    border-radius: 0 0 10px 10px;
+}
+
+.header-comment .comment::after,.header-comment .comment::before{
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: transparent;
+    top: 0;
+}
+
+.header-comment .comment::after{
+    right: -10px;
+    border-radius: 10px 0 0 0px;
+    box-shadow: -2px -2px 0px 2px green;
+}
+
+.header-comment .comment::before{
+    left: -10px;
+    border-radius: 0 10px 0 0px;
+    box-shadow: 4px -4px 2px 2px green;
+}
+
+.preview-container{
+    background-color: white;
+}
+
 /*
 ::ng-deep .hidden div.p-stepper-panel:nth-child(5){
     display: none;
 }*/
+
+/********* the stepper **********/
+.stepper-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
+  }
+  
+  .step {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 5px;
+    transition: all 0.3s ease;
+    width: 100%;
+  }
+  
+  .step-item {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+  }
+  
+  .circle {
+    width: 40px !important;
+    height: 40px;
+    border-radius: 50%;
+    background-color: lightgray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 20px;
+    font-size: 18px;
+    font-weight: bold;
+    flex-shrink: 0; /* Prevents the circle from shrinking */
+
+  }
+  
+  .step-content {
+    flex-grow: 1;
+    transition: max-height 0.3s ease, padding 0.3s ease; /* Smooth transition for max-height and padding */
+    height: 40px; /* Initially hide the content */
+    overflow: hidden; /* Hide content that exceeds max-height */
+  }
+  
+  .step-content h3 {
+    font-size: 18px;
+    margin: 0;
+    height: 40px;
+    display: flex;
+    align-items: center;
+  }
+
+  .active-content {
+    height: auto; /* Set a max-height when active (adjust as needed) */
+    overflow: visible;
+  }
+
+  .content-container{
+    flex-grow: 2;
+  }
+  
+  .content-box {
+    margin-top: 10px;
+    padding: 10px;
+    text-align: center;
+    width: 100%;
+  }
+  
+  .step-buttons {
+    display: flex;
+    width: 100%;
+    margin-top: 10px;
+    gap: 10px;
+  }
+  
+  .step.active .circle {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  
 

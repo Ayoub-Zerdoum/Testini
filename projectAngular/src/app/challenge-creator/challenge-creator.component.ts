@@ -7,11 +7,6 @@ interface Question {
   data: any
 }
 
-interface Stepper {
-  visible:Boolean,
-  header: string;
-  question: Question | null; // Define question type as Question or null
-}
 
 
 @Component({
@@ -41,12 +36,10 @@ export class ChallengeCreatorComponent {
 
   // Initialize steppers with an empty array for questions in each stepper
    // Initial state for steppers
-   steppers : Stepper[] = [
-    { visible: true, header: 'Step 1', question: null },
-    { visible: true, header: 'Step 2', question: null },
-    { visible: false, header: 'Step 3', question: null },
-    { visible: false, header: 'Step 4', question: null },
-    { visible: false, header: 'Step 5', question: null }
+   currentStep = 0;
+
+   steps : any[] = [
+    { title: 'Question 1', question: null },
   ];
 
 
@@ -68,7 +61,7 @@ export class ChallengeCreatorComponent {
   // Handle drop event in the respective stepper
   drop(stepIndex: number) {
     if (this.draggedItemType) {
-      this.steppers[stepIndex].question = {
+      this.steps[stepIndex].question = {
         type: this.draggedItemType, // Create a new question object
         mode: 'creation', // Specify the mode here if needed
         data: {
@@ -81,18 +74,71 @@ export class ChallengeCreatorComponent {
     }
   }
 
-  // Add a new stepper based on the index of the current stepper
-  addStepper(index: number) {
-    if (index < this.steppers.length - 1) {
-      this.steppers[index + 1].visible = true;
-    }
+  // Function to add a new step after the current index
+  addStep(index: number) {
+    const newStep = {
+      title: `Question ${this.steps.length + 1} `,
+      question: null
+    };
+
+    this.currentStep = index+1;
+    
+    // Insert new step after the current index
+    this.steps.splice(index + 1, 0, newStep);
+
+    // Optionally, update headers to match the new step order
+    this.steps.forEach((step, i) => {
+      step.title = `Question ${i + 1} `;
+    });
   }
 
   // Method to handle question updates from the child component
-  onQuestionChange(updatedQuestion: any) {
-    console.log(this.steppers)
-    this.steppers[0].question = updatedQuestion; // Update the question in the parent
+  onQuestionChange(updatedQuestion: any,i: any) {
+    console.log(this.steps)
+    this.steps[i].question = updatedQuestion; // Update the question in the parent
   }
 
+  // Function to set the active step
+  setStep(index: number): void {
+    this.currentStep = index; // Set the current step to the clicked step
+  }
+
+  nextStep() {
+    if (this.currentStep < this.steps.length - 1) {
+      this.currentStep++;
+    }
+  }
+
+  prevStep() {
+    if (this.currentStep > 0) {
+      this.currentStep--;
+    }
+  }
   
+  getInvalidQuestion(step: any): string {
+    // Check if there is no question or the question text is empty
+    if (!step.question) {
+      return 'No type selected';
+    }
+
+    // Check if question text is missing
+    if (!step.question.data || !step.question.data.text) {
+      return 'No question specified';
+    }
+  
+    // Check if the question has fewer than 2 options
+    if (step.question.data.options.length < 2) {
+      return ' (This question has less than 2 options)';
+    }
+  
+    // Check if any option is empty
+    if (step.question.data.options.some((option: string) => option.trim() === '')) {
+      return 'Some options are empty';
+    }
+  
+    // If all checks pass, return an empty string
+    return '';
+  }
+  
+
 }
