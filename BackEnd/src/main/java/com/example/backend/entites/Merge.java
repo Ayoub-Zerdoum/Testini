@@ -29,9 +29,8 @@ public class Merge implements Serializable {
     private String title;
     @Enumerated(EnumType.STRING)
     private OperationM operation;
-    private String passworld;
     @ElementCollection
-    private List<Long> iDSessions;
+    private List<Long> idSessions;
     @ElementCollection
     private List<Integer> coefSessions;
 

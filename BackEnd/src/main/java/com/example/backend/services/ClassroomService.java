@@ -1,12 +1,12 @@
 package com.example.backend.services;
 
-import com.example.backend.entites.Classroom;
+import com.example.backend.dtos.ClassroomDTO;
 
 import java.util.List;
 
 public interface ClassroomService {
-    void saveClassroom(Classroom classroom, Long instructorId);
-    List<Classroom> getAllClassrooms();
-    Classroom getClassroomById(Long classroomId);
+    void saveClassroom(ClassroomDTO classroomDTO, Long instructorId);
+    List<ClassroomDTO> getAllClassrooms();
+    ClassroomDTO getClassroomById(Long classroomId);
     void deleteClassroom(Long classroomId);
 }

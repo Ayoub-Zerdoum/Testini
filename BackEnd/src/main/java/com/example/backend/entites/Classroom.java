@@ -25,6 +25,9 @@ public class Classroom implements Serializable{
     private Long id;
 
     private String title;
+    private String titleColor;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date creationDate;
 
     @ElementCollection
     private List<Float> coefs;

@@ -6,7 +6,9 @@ import com.example.backend.services.SessionService;
 
 
 import com.example.backend.entites.Session;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,11 +27,8 @@ public class SessionController {
     // Récupérer toutes les sessions et les transformer en DTO
     @GetMapping("/all")
     public ResponseEntity<List<SessionDTO>> getAllSessions() {
-        List<Session> sessions = sessionService.getAllSessions();
-        List<SessionDTO> sessionDTOs = sessions.stream()
-                .map(sessionMapper::toSessionDTO)
-                .collect(Collectors.toList());
-        return ResponseEntity.ok(sessionDTOs);
+        long a=1L;
+        return ResponseEntity.ok(sessionService.getSessionsDTOByClassroomId(a));
     }
 
     // Récupérer une session par ID et la transformer en DTO
@@ -56,9 +55,24 @@ public class SessionController {
         return ResponseEntity.ok().build();
     }
 
-    // Endpoint to return a static integer value (for testing or simple check)
-    @GetMapping("/int")
-    public ResponseEntity<Integer> inte() {
-        return ResponseEntity.ok(1);
+    @GetMapping("/{classroomId}/sessions")
+    public ResponseEntity<List<SessionDTO>> getSessionsByClassroomId(@PathVariable Long classroomId) {
+        try {
+            // Fetch the sessions from the service layer
+            List<SessionDTO> sessionDTOS = sessionService.getSessionsDTOByClassroomId(classroomId);
+
+            // Return the response with the list of sessions
+            return ResponseEntity.ok(sessionDTOS);
+        } catch (EntityNotFoundException ex) {
+            // If classroom not found, return 404
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        } catch (Exception ex) {
+            // Handle any other unexpected errors
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
     }
+
 }
+
+
+
