@@ -22,12 +22,15 @@
         </div>
     </p-toolbar>
     <div class="cards">
-<<<<<<< HEAD
-=======
-        <app-classroom-card [routerLink]="['/inside/report-card']" [title]="'Math Class'" [titleColor]="'#FF6F61'"
-            [studentCount]="25" [assignmentCount]="10" [creationDate]="'2024-09-15'" [nextTestDate]="'2024-10-15'"
->>>>>>> f1eddb79f12baea744deb88d01198b75705c8586
-            [testTitle]="'Third home test - SYM 2024'">
+        <app-classroom-card 
+            (click)="navigateTo('/inside/report-card')"
+            [title]="'Math Class'" 
+            [titleColor]="'#FF6F61'" 
+            [studentCount]="25" 
+            [assignmentCount]="10" 
+            [creationDate]="'2024-09-15'" 
+            [nextTestDate]="'2024-10-15'" >
+        
         </app-classroom-card>
         <app-classroom-card [title]="'Math Class'" [creationDate]="'2024-09-15'">
         </app-classroom-card>
