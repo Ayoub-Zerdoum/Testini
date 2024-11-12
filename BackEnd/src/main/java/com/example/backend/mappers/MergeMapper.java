@@ -21,6 +21,7 @@ public class MergeMapper {
         merge.setCoefSessions(mergeDTO.getCoefSessions());
         merge.setOperation(mergeDTO.getOperation());
         merge.setIdSessions(mergeDTO.getIdSessions());
+
         return merge;
 
 

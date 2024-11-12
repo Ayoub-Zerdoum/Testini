@@ -56,7 +56,7 @@ public class SessionServiceImpl implements SessionService {
         Classroom classroom = classroomRepository.findById(classroomId)
                 .orElseThrow(() -> new EntityNotFoundException("Classroom not found with id: " + classroomId));
 
-        List<Session> sessions = classroom.getSession();
+        List<Session> sessions = classroom.getSessions();
         List<Merge> merges = classroom.getMergingDetails();
 
         // Mapping individual Session to SessionDTO

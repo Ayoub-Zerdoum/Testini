@@ -5,8 +5,8 @@ import lombok.*;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 
 @Entity
@@ -29,15 +29,48 @@ public class Classroom implements Serializable{
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;
 
+
+
+
     @ElementCollection
     private List<Float> coefs;
 
     @ManyToOne
     private Instructor instructorCL;
     @OneToMany(mappedBy = "classroomSH")
-    private List<Session> Session;
+    private List<Session> sessions;
     @OneToMany(mappedBy = "classroomMerge")
     private List<Merge> mergingDetails;
+
+
+
+
+    public Set<String> getDistinctStudentEmails() {
+        if (sessions == null || sessions.isEmpty()) {
+            return Collections.emptySet();
+        }
+
+        return sessions.stream()
+                .flatMap(session -> session.getSubmissions().stream())
+                .map(Submission::getStudentEmail)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toSet());
+    }
+
+
+
+    public Session getClosestUpcomingSession() {
+        Date now = new Date();
+
+        // Check if the list of sessions is null or empty
+        return sessions == null || sessions.isEmpty() ? // Changed to 'sessions'
+                null :
+                sessions.stream() // Changed to 'sessions'
+                        .filter(session -> session.getStartTime().after(now))
+                        .min(Comparator.comparing(Session::getStartTime))
+                        .orElse(null);
+    }
+
 
 
 }
