@@ -1,5 +1,5 @@
 <div class="classroom-display">
-    
+
     <h1>Classroom</h1>
     <p-toolbar class="toolbar">
         <div class="p-toolbar-group-start title-search">
@@ -11,93 +11,50 @@
         </div>
         <div class="p-toolbar-group-center">
             <div class="menu">
-                <div 
-                    class="menu-item" 
-                    *ngFor="let item of menuItems" 
-                    [class.selected]="selectedItem === item"
+                <div class="menu-item" *ngFor="let item of menuItems" [class.selected]="selectedItem === item"
                     (click)="selectMenu(item)">
                     {{ item }}
                 </div>
-            </div>                     
+            </div>
         </div>
         <div class="p-toolbar-group-end">
             <p-button class="mr-2">New Classroom</p-button>
         </div>
     </p-toolbar>
     <div class="cards">
-        <app-classroom-card 
-            (click)="navigateTo('/inside/report-card')"
-            [title]="'Math Class'" 
-            [titleColor]="'#FF6F61'" 
-            [studentCount]="25" 
-            [assignmentCount]="10" 
-            [creationDate]="'2024-09-15'" 
-            [nextTestDate]="'2024-10-15'" 
+<<<<<<< HEAD
+=======
+        <app-classroom-card [routerLink]="['/inside/report-card']" [title]="'Math Class'" [titleColor]="'#FF6F61'"
+            [studentCount]="25" [assignmentCount]="10" [creationDate]="'2024-09-15'" [nextTestDate]="'2024-10-15'"
+>>>>>>> f1eddb79f12baea744deb88d01198b75705c8586
             [testTitle]="'Third home test - SYM 2024'">
         </app-classroom-card>
-        <app-classroom-card 
-            [title]="'Math Class'" 
-            [creationDate]="'2024-09-15'">
+        <app-classroom-card [title]="'Math Class'" [creationDate]="'2024-09-15'">
         </app-classroom-card>
 
-        <app-classroom-card 
-            [title]="'Science Class'" 
-            [titleColor]="'#20B2AA'" 
-            [studentCount]="30" 
-            [assignmentCount]="8" 
-            [creationDate]="'2024-09-10'" 
-            [nextTestDate]="'2024-10-20'" 
-            [testTitle]="'Chemistry Test'">
+        <app-classroom-card [title]="'Science Class'" [titleColor]="'#20B2AA'" [studentCount]="30" [assignmentCount]="8"
+            [creationDate]="'2024-09-10'" [nextTestDate]="'2024-10-20'" [testTitle]="'Chemistry Test'">
         </app-classroom-card>
 
-        <app-classroom-card 
-            [title]="'History Class'" 
-            [titleColor]="'#9370DB'" 
-            [studentCount]="28" 
-            [assignmentCount]="12" 
-            [creationDate]="'2024-08-25'" 
-            [nextTestDate]="'2024-10-18'" 
+        <app-classroom-card [title]="'History Class'" [titleColor]="'#9370DB'" [studentCount]="28"
+            [assignmentCount]="12" [creationDate]="'2024-08-25'" [nextTestDate]="'2024-10-18'"
             [testTitle]="'World War II Test'">
         </app-classroom-card>
 
-        <app-classroom-card 
-            [title]="'Art Class'" 
-            [titleColor]="'#FF8C00'" 
-            [studentCount]="15" 
-            [assignmentCount]="5" 
-            [creationDate]="'2024-07-05'" 
-            [nextTestDate]="'2024-11-01'" 
-            [testTitle]="'Painting Techniques'">
+        <app-classroom-card [title]="'Art Class'" [titleColor]="'#FF8C00'" [studentCount]="15" [assignmentCount]="5"
+            [creationDate]="'2024-07-05'" [nextTestDate]="'2024-11-01'" [testTitle]="'Painting Techniques'">
         </app-classroom-card>
 
-        <app-classroom-card 
-            title="Physical Education" 
-            [titleColor]="'#32CD32'" 
-            [studentCount]="20" 
-            [assignmentCount]="4" 
-            creationDate="2024-06-15" 
-            nextTestDate="2024-10-25" 
-            testTitle="Fitness Test">
+        <app-classroom-card title="Physical Education" [titleColor]="'#32CD32'" [studentCount]="20"
+            [assignmentCount]="4" creationDate="2024-06-15" nextTestDate="2024-10-25" testTitle="Fitness Test">
         </app-classroom-card>
 
-        <app-classroom-card 
-            title="Computer Science" 
-            [titleColor]="'#1E90FF'" 
-            [studentCount]="18" 
-            [assignmentCount]="6" 
-            creationDate="2024-09-01" 
-            nextTestDate="2024-10-12" 
-            testTitle="Programming Basics">
+        <app-classroom-card title="Computer Science" [titleColor]="'#1E90FF'" [studentCount]="18" [assignmentCount]="6"
+            creationDate="2024-09-01" nextTestDate="2024-10-12" testTitle="Programming Basics">
         </app-classroom-card>
 
-        <app-classroom-card 
-            title="Geography Class" 
-            [titleColor]="'#FF4500'" 
-            [studentCount]="22" 
-            [assignmentCount]="7" 
-            creationDate="2024-08-20" 
-            nextTestDate="2024-11-05" 
-            testTitle="Map Skills">
+        <app-classroom-card title="Geography Class" [titleColor]="'#FF4500'" [studentCount]="22" [assignmentCount]="7"
+            creationDate="2024-08-20" nextTestDate="2024-11-05" testTitle="Map Skills">
         </app-classroom-card>
 
 

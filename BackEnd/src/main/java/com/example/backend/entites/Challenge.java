@@ -27,7 +27,7 @@ public class Challenge implements Serializable {
     private String title;
     private String description;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.TIME)
     private Date createdAt;
 
     private String challengeData; // Assuming JSON stored as a String
