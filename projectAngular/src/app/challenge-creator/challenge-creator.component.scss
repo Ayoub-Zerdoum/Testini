@@ -62,7 +62,7 @@
     position: relative;
     width: fit-content;
     padding: 5px 10px;
-    background-color: green;
+    background-color: #228b22;
     color: white;
     border-radius: 0 0 10px 10px;
 }
@@ -79,7 +79,7 @@
 .header-comment .comment::after{
     right: -10px;
     border-radius: 10px 0 0 0px;
-    box-shadow: -2px -2px 0px 2px green;
+    box-shadow: -2px -2px 0px 2px #228b22;
 }
 
 .header-comment .comment::before{
@@ -176,6 +176,69 @@
     background-color: #007bff;
     color: white;
   }
+
+  .prev-container{
+    margin-top: -28px;
+  }
+
   
   
+/*************** the templates **********************/
+/* General styles for template boxes */
+.template-box {
+  width: 200px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 15px;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 18px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+/* Active template styling */
+.template-box.active::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(34, 139, 34, 0.5); /* Semi-transparent green overlay */
+  border-radius: 8px;
+  z-index: 1; /* Places overlay above content but below checkmark */
+}
+
+/* Checkmark icon in the active box */
+.template-box.active::before {
+  content: "✔"; /* Checkmark symbol */
+  position: absolute;
+  color: #ffffff;
+  font-size: 40px;
+  z-index: 2; /* Brings checkmark icon above everything */
+  opacity: 0.8; /* Slight transparency for checkmark */
+}
+
+/* Default Template Box */
+.template-box.default-template {
+  background-color: #ffffff; /* White background */
+  color: #4b5563; /* Text color */
+  font-family: 'Poppins', sans-serif; /* Poppins font */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow for separation */
+}
+
+/* Sleek Dark Template Box */
+.template-box.sleek-dark-template {
+  background-color: #1a1a1a; /* Dark background with dots */
+  color: white; /* Grayish text color */
+  font-family: 'Montserrat', sans-serif; /* Montserrat font */
+  background-image: url('../../assets/sleek-dark-template1.png'); /* Dark pattern background */
+  font-family: 'Roboto', sans-serif;
+  background-size: 300px;
+  font-weight: 700;
+}
 

@@ -15,59 +15,31 @@
                     placeholder="Select a Type" />
             </p-toolbar>
             <ul class="question-container">
-                <app-quiz1 class="question-template" [mode]="'view'" [type]="'Quiz'" pDraggable
+                <app-quiz1 class="question-template" [mode]="'view'" pDraggable
                      (onDragStart)="dragStart('Quiz')" (onDragEnd)="dragEnd()"></app-quiz1>
 
-          <app-quiz1 class="question-template" [mode]="'view'" [type]="'Q/A'" pDraggable
-                     (onDragStart)="dragStart('Q/A')" (onDragEnd)="dragEnd()"></app-quiz1>
+          <app-qr-question class="question-template" [mode]="'view'" pDraggable
+                     (onDragStart)="dragStart('Q/A')" (onDragEnd)="dragEnd()"></app-qr-question>
 
-          <app-quiz1 class="question-template" [mode]="'view'" [type]="'Survey'" pDraggable
-                     (onDragStart)="dragStart('survey')" (onDragEnd)="dragEnd()"></app-quiz1>
+          
             </ul>
         </div>
     </ng-template>
     <ng-template pTemplate>
         <div class="col flex align-items-center justify-content-center container-split">
+            <div class="button-container">
+                <p-button 
+                    label="Save" 
+                    icon="pi pi-check" 
+                    (onClick)="Save()" />
+                <p-button 
+                    label="Publish" 
+                    severity="danger"
+                    icon="pi pi-upload" 
+                    (onClick)="Publish()" />
+            </div>
             <div class="card">
-                <!--<p-stepper orientation="vertical">
-                    <p-stepperPanel
-                      *ngFor="let step of steppers; let i = index"
-                      [header]="step.header"
-                      [ngClass]="'stepper-' + i"
-                    >
-                      <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback">
-                        <div class="stepper-content">
-                          <div class="p-2 border-1 surface-border border-round w-15rem dropZone" pDroppable (onDrop)="drop(i)">
-                            <p class="text-center surface-border border-bottom-1">Drop A Question Here</p>
-                            
-                            <app-quiz1 *ngIf="step.question" class="question-template" 
-                                       [number]="i" 
-                                       [mode]="'creation'" 
-                                       [type]="step.question.type" 
-                                       (questionChange)="onQuestionChange($event)">
-                            </app-quiz1>
-                            
-                            <p-divider></p-divider>
-                            
-                            <p class="text-center surface-border border-bottom-1">Preview the Display</p>
-                            <app-quiz1 *ngIf="step.question"
-                                       [number]="i" 
-                                       [mode]="'ask'" 
-                                       [type]="step.question.type" 
-                                       [questionData]="step.question">
-                            </app-quiz1>
-                          </div>
-                  
-                          <div class="button-group">
-                            <p-button *ngIf="i > 0" label="Back" (onClick)="prevCallback.emit()"></p-button>
-                            <p-button *ngIf="i < steppers.length - 1" label="Next" (onClick)="nextCallback.emit()"></p-button>
-                            <p-button label="Add Step" (onClick)="addStep(i)"></p-button>
-                          </div>
-                        </div>
-                      </ng-template>
-                    </p-stepperPanel>
-                  </p-stepper>-->
-
+                
                   <div class="stepper-container">
                     <div *ngFor="let step of steps; let i = index" class="step" 
                     [ngClass]="{ active: currentStep === i, completed: currentStep > i }">
@@ -91,9 +63,61 @@
                                     <div class="header-comment">
                                         <div class="comment surface-border border-bottom-1">Drop A Question Here</div>
                                     </div>
+
+                                    <div *ngIf="step.question" [ngSwitch]="step.question.type">
+                                      <!-- Creation Mode -->
+                                      <ng-container *ngSwitchCase="'Quiz'">
+                                          <app-quiz1 
+                                              class="question-template" 
+                                              [number]="i" 
+                                              [mode]="'creation'" 
+                                              (questionChange)="onQuestionChange($event, i)">
+                                          </app-quiz1>
+                                      </ng-container>
+                                  
+                                      <ng-container *ngSwitchCase="'Q/A'">
+                                          <app-qr-question 
+                                              class="question-template" 
+                                              [number]="i" 
+                                              [mode]="'creation'" 
+                                              (questionChange)="onQuestionChange($event, i)">>
+                                          </app-qr-question>
+                                      </ng-container>
+                                  
+                                      <!-- Add more question types as needed -->
+                                  </div>
+                                  
+                                  <div class="preview-container" *ngIf="step.question">
+                                      <hr style="margin-bottom: -1px;">
+                                      <div class="header-comment">
+                                          <div class="comment surface-border border-bottom-1">Preview the Display</div>
+                                      </div>
+                                  
+                                      <div [ngSwitch]="step.question.type" class="prev-container">
+                                          <!-- Ask Mode for Quiz -->
+                                          <ng-container *ngSwitchCase="'Quiz'">
+                                              <app-quiz1 
+                                                  [number]="i" 
+                                                  [mode]="'ask'" 
+                                                  [template]="selectedTemplate"
+                                                  [questionData]="step.question">
+                                              </app-quiz1>
+                                          </ng-container>
+                                  
+                                          <!-- Ask Mode for Q/A -->
+                                          <ng-container *ngSwitchCase="'Q/A'">
+                                              <app-qr-question 
+                                                  [mode]="'ask'" 
+                                                  [questionData]="step.question">
+                                              </app-qr-question>
+                                          </ng-container>
+                                  
+                                          <!-- Add more question types as needed -->
+                                      </div>
+                                  </div>
+                                  
                                     
-                                    
-                                    <!-- Creation Mode -->
+                                    <!--
                                     <app-quiz1 *ngIf="step.question" class="question-template" 
                                                [number]="i" 
                                                [mode]="'creation'" 
@@ -101,10 +125,8 @@
                                                (questionChange)="onQuestionChange($event,i)">
                                     </app-quiz1>
                                     
-                                    
                                     <div class="preview-container">
                                         <hr *ngIf="step.question"style="margin-bottom: -1px;">
-                                        <!-- Ask Mode -->
                                         <div *ngIf="step.question" class="header-comment">
                                             <div class="comment surface-border border-bottom-1">Preview the Display</div>
                                         </div>
@@ -114,7 +136,7 @@
                                                 [type]="step.question.type" 
                                                 [questionData]="step.question">
                                         </app-quiz1>
-                                    </div>
+                                    </div>-->
                                     </div>
                                     
                                     
@@ -142,6 +164,21 @@
     <ng-template pTemplate>
         <div class="col flex align-items-center justify-content-center container-split">
             <h1>Templates</h1>
+             <!-- Default Template Box -->
+                <div 
+                class="template-box default-template" 
+                [ngClass]="{'active': selectedTemplate === 'default-template'}" 
+                (click)="selectTemplate('default-template')">
+                <span class="template-name">Default Template</span>
+            </div>
+            
+            <!-- Sleek Dark Template Box -->
+            <div 
+                class="template-box sleek-dark-template" 
+                [ngClass]="{'active': selectedTemplate === 'sleek-dark-template'}" 
+                (click)="selectTemplate('sleek-dark-template')">
+                <span class="template-name">Sleek Dark Template</span>
+            </div>
         </div>
     </ng-template>
 </p-splitter>

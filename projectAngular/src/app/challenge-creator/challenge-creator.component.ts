@@ -48,6 +48,14 @@ export class ChallengeCreatorComponent {
   selectedType: string | undefined;
   draggedItemType: string | null = null;
   droppedComponent: { type: string } | null = null;
+  
+  // Initial template is set to 'default-template'
+  selectedTemplate: string = 'default-template';
+
+  // Method to select a template
+  selectTemplate(template: string): void {
+    this.selectedTemplate = template;
+  }
 
   dragStart(type: string) {
     this.draggedItemType = type;
@@ -127,12 +135,12 @@ export class ChallengeCreatorComponent {
     }
   
     // Check if the question has fewer than 2 options
-    if (step.question.data.options.length < 2) {
+    if (step.question.type == "Quiz" && step.question.data.options.length < 2) {
       return ' (This question has less than 2 options)';
     }
   
     // Check if any option is empty
-    if (step.question.data.options.some((option: string) => option.trim() === '')) {
+    if (step.question.type == "Quiz" && step.question.data.options.some((option: string) => option.trim() === '')) {
       return 'Some options are empty';
     }
   
@@ -140,5 +148,8 @@ export class ChallengeCreatorComponent {
     return '';
   }
   
+
+  Save(){}
+  Publish(){}
 
 }

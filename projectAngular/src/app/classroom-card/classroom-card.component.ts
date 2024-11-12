@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-classroom-card',
@@ -13,4 +13,16 @@ export class ClassroomCardComponent {
   @Input() nextTestDate: string = '----------'; // Date for the next test
   @Input() testTitle: string = 'No futur tests are scheduled';   // Title of the test
   @Input() titleColor: string = '#ccc';    // Default title color
+
+
+  visible: boolean = false;
+
+  showDialog(event: Event) {
+    event.stopPropagation();
+    this.visible = true;
+  }
+
+  stopEvent(event: Event) {
+    event.stopPropagation();
+  }
 }

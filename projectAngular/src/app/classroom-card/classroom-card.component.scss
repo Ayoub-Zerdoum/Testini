@@ -23,6 +23,17 @@
     padding: 10px;
     font-size: 1.2em;
     font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-edit{
+    font-size: 20px;
+}
+
+.card-edit:hover{
+    color: gold;
 }
 
 .card-content {

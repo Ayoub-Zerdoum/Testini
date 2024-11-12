@@ -15,7 +15,6 @@ export class Quiz1Component {
   @Input() mode?: 'view' | 'creation' | 'ask';
   @Input() number!: number;
 
-  @Input() type!: string; // Required type of the question
   @Input() template?: string; // Optional template string
   @Input() questionData: any;
 
@@ -44,14 +43,6 @@ export class Quiz1Component {
     options: ['Paris', 'Berlin', 'Madrid', 'Rome'],
   }
 
-  QADataView = {
-    type: 'Q/A',
-    mode: 'view',
-    number: 1,
-    question: 'How do you feel right now?',
-    description: 'you need to describe you stat of mind',
-    answer: 'i feel very inspired'
-  }
    // Add an empty option to the options array in question data
    addOption() {
     if (!Array.isArray(this.question.data.options)) {

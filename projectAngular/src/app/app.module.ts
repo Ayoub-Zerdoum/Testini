@@ -52,6 +52,7 @@ import { ChallengeCreatorComponent } from './challenge-creator/challenge-creator
 import { Quiz1Component } from './questions/quiz1/quiz1.component';
 import { HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http';
 import { CustomStepperComponent } from './custom-stepper/custom-stepper.component';
+import { QRQuestionComponent } from './questions/qr-question/qr-question.component';
 
 
 
@@ -72,7 +73,8 @@ import { CustomStepperComponent } from './custom-stepper/custom-stepper.componen
     QuizType1Component,
     ChallengeCreatorComponent,
     Quiz1Component,
-    CustomStepperComponent
+    CustomStepperComponent,
+    QRQuestionComponent
   ],
   imports: [HttpClientModule,
     BrowserModule, RadioButtonModule,
