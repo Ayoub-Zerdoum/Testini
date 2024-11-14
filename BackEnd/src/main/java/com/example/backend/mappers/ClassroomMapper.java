@@ -2,6 +2,7 @@ package com.example.backend.mappers;
 
 
 import com.example.backend.dtos.ClassroomDTO;
+import com.example.backend.dtos.ClassroomUpdateSaveDTO;
 import com.example.backend.dtos.MergeDTO;
 import com.example.backend.entites.Classroom;
 import com.example.backend.entites.Merge;
@@ -21,6 +22,15 @@ public class ClassroomMapper {
 
         return classroom;
 
+    }
+
+
+    public Classroom convertToClassroom(ClassroomUpdateSaveDTO classroomUpdateSaveDTO) {
+        Classroom classroom = new Classroom();
+        classroom.setId(classroomUpdateSaveDTO.getId());
+        classroom.setTitle(classroomUpdateSaveDTO.getTitle());
+        classroom.setTitleColor(classroomUpdateSaveDTO.getTitleColor());
+        return classroom;
     }
     public ClassroomDTO convertToClassroomDTO(Classroom classroom) {
         ClassroomDTO classroomDTO = new ClassroomDTO();

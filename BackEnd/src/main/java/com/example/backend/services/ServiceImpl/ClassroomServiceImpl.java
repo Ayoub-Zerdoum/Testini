@@ -1,6 +1,7 @@
 package com.example.backend.services.ServiceImpl;
 
 import com.example.backend.dtos.ClassroomDTO;
+import com.example.backend.dtos.ClassroomUpdateSaveDTO;
 import com.example.backend.entites.Classroom;
 import com.example.backend.entites.Instructor;
 import com.example.backend.mappers.ClassroomMapper;
@@ -25,10 +26,10 @@ public class ClassroomServiceImpl implements ClassroomService {
     private final ClassroomMapper classroomMapper;
 
     @Override
-    public void saveClassroom(ClassroomDTO classroomDTO, Long instructorId) {
+    public void saveClassroom(ClassroomUpdateSaveDTO classroomUpdateSaveDTO, Long instructorId) {
         Optional<Instructor> instructorOptional = instructorRepository.findById(instructorId);
         if (instructorOptional.isPresent()) {
-            Classroom classroom = classroomMapper.convertToClassroom(classroomDTO);
+            Classroom classroom = classroomMapper.convertToClassroom(classroomUpdateSaveDTO);
             classroom.setInstructorCL(instructorOptional.get());
             classroomRepository.save(classroom);
         } else {
@@ -37,8 +38,28 @@ public class ClassroomServiceImpl implements ClassroomService {
     }
 
     @Override
+    public void updateClassroom(ClassroomUpdateSaveDTO classroomUpdateSaveDTO) {
+        Classroom classroom = classroomRepository.findById(classroomUpdateSaveDTO.getId())
+                .orElseThrow(() -> new IllegalArgumentException("Classroom not found with ID: " + classroomUpdateSaveDTO.getId()));
+
+        // Update title and titleColor only
+        classroom.setTitle(classroomUpdateSaveDTO.getTitle());
+        classroom.setTitleColor(classroomUpdateSaveDTO.getTitleColor());
+
+        classroomRepository.save(classroom);
+    }
+
+    @Override
     public List<ClassroomDTO> getAllClassrooms() {
         return classroomRepository.findAll()
+                .stream()
+                .map(classroomMapper::convertToClassroomDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ClassroomDTO> getAllClassroomsByInstructorId(Long instructorId) {
+        return classroomRepository.findByInstructorId(instructorId)
                 .stream()
                 .map(classroomMapper::convertToClassroomDTO)
                 .collect(Collectors.toList());

@@ -15,9 +15,18 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ClassroomDTO {
+    /*[
+            "#FF6F61",
+            "#20B2AA",
+            "#9370DB",
+            "#FF8C00",
+            "#32CD32",
+            "#1E90FF",
+            "#FF4500"
+            ]
+           */
 
-    // Setters
-    // Getters
+
     private Long id;
     private String title;
     private String titleColor;

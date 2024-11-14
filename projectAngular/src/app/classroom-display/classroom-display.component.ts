@@ -10,7 +10,7 @@ export class ClassroomDisplayComponent {
   menuItems: string[] = ['All', 'Newest', 'Closest Test'];
   selectedItem: string | null = 'All';
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) { }
 
   // Generalized method to navigate to a given route
   navigateTo(route: string) {

@@ -1,6 +1,7 @@
 package com.example.backend.web;
 
 import com.example.backend.dtos.ClassroomDTO;
+import com.example.backend.dtos.ClassroomUpdateSaveDTO;
 import com.example.backend.services.ClassroomService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,25 +18,39 @@ public class ClassroomController {
 
     private final ClassroomService classroomService;
 
-    // 1. Save Classroom
     @PostMapping
-    public ResponseEntity<String> saveClassroom(@RequestBody ClassroomDTO classroomDTO, @RequestParam Long instructorId) {
+    public ResponseEntity<String> saveClassroom(@RequestBody ClassroomUpdateSaveDTO classroomUpdateSaveDTO, @RequestParam Long instructorId) {
         try {
-            classroomService.saveClassroom(classroomDTO, instructorId);
+            classroomService.saveClassroom(classroomUpdateSaveDTO, instructorId);
             return ResponseEntity.status(HttpStatus.CREATED).body("Classroom saved successfully.");
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
 
-    // 2. Get All Classrooms
+    @PutMapping("/{id}")
+    public ResponseEntity<String> updateClassroom(@PathVariable Long id, @RequestBody ClassroomUpdateSaveDTO classroomUpdateSaveDTO) {
+        try {
+            classroomUpdateSaveDTO.setId(id);
+            classroomService.updateClassroom(classroomUpdateSaveDTO);
+            return ResponseEntity.ok("Classroom updated successfully.");
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+
     @GetMapping
     public ResponseEntity<List<ClassroomDTO>> getAllClassrooms() {
         List<ClassroomDTO> classroomDTOs = classroomService.getAllClassrooms();
         return ResponseEntity.ok(classroomDTOs);
     }
 
-    // 3. Get Classroom by ID
+    @GetMapping("Instructor/{idInstractor}")
+    public ResponseEntity<List<ClassroomDTO>> getAllClassrooms(@PathVariable Long idInstractor) {
+        List<ClassroomDTO> classroomDTOs = classroomService.getAllClassroomsByInstructorId(idInstractor);
+        return ResponseEntity.ok(classroomDTOs);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<ClassroomDTO> getClassroomById(@PathVariable Long id) {
         try {
@@ -46,7 +61,6 @@ public class ClassroomController {
         }
     }
 
-    // 4. Delete Classroom by ID
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteClassroom(@PathVariable Long id) {
         try {
