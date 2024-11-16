@@ -112,7 +112,7 @@ import { TreeModule } from 'primeng/tree';
     DividerModule,
     SelectButtonModule, TagModule,
 
-    SplitterModule, DragDropModule, ToastModule, ConfirmDialogModule, TreeTableModule, TreeModule, IconFieldModule, InputIconModule,
+    SplitterModule, DragDropModule, ToastModule, ConfirmDialogModule, TreeTableModule, TreeModule, IconFieldModule, InputIconModule, MessagesModule
   ],
   providers: [
     provideClientHydration(), provideHttpClient(withFetch()), MessageService, ConfirmationService
