@@ -28,6 +28,20 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 import { SplitterModule } from 'primeng/splitter';
 import { DragDropModule } from 'primeng/dragdrop';
 
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { MessagesModule } from 'primeng/messages';
+
+import { ConfirmationService } from 'primeng/api';
+
+
+
+
+
 
 
 
@@ -53,9 +67,7 @@ import { Quiz1Component } from './questions/quiz1/quiz1.component';
 import { HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http';
 import { CustomStepperComponent } from './custom-stepper/custom-stepper.component';
 import { QRQuestionComponent } from './questions/qr-question/qr-question.component';
-import { ToastModule } from 'primeng/toast';
-import { MessageService, ConfirmationService } from 'primeng/api';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
+
 
 import { TreeTableModule } from 'primeng/treetable';
 
@@ -99,10 +111,12 @@ import { TreeModule } from 'primeng/tree';
     ToolbarModule,
     DividerModule,
     SelectButtonModule, TagModule,
-    SplitterModule, DragDropModule, ToastModule, ConfirmDialogModule, TreeTableModule, TreeModule
+
+    SplitterModule, DragDropModule, ToastModule, ConfirmDialogModule, TreeTableModule, TreeModule, IconFieldModule, InputIconModule,
   ],
   providers: [
     provideClientHydration(), provideHttpClient(withFetch()), MessageService, ConfirmationService
+
 
   ],
   bootstrap: [AppComponent]

@@ -29,6 +29,8 @@ export class QRQuestionComponent {
   @Input() mode?: 'view' | 'creation' | 'ask';
   @Input() number!: number;
 
+  @Input() template?: string;
+
   @Output() questionChange = new EventEmitter<Question>();
 
   // Default question structure for Q/A type

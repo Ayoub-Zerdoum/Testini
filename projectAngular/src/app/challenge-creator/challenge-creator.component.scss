@@ -25,10 +25,11 @@
 .question-container{
     list-style: none;
     display: flex;
-    flex-direction: column;
     gap: 10px;
     padding: 10px;
     align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 .dropZone{
     width: 100%;
@@ -41,6 +42,57 @@
 
 .container-split h1{
     text-align: center;
+}
+
+.header-container{
+  margin-bottom: 10px;
+  padding: 10px 10px 0 10px;
+  border-bottom: 3px solid #e0e1e2;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.info-container {
+  flex-grow: 1; /* Takes up the remaining space */
+  min-width: 0; /* Prevents overflow if content gets too wide */
+}
+
+.info-container .name-container{
+  margin-bottom: 10px;
+}
+
+.info-container textarea{
+  width: 100% !important;  /* Full width */
+  padding: 8px;
+  font-size: 14px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  resize: none; 
+  min-height: 50px;  /* Set a minimum height */
+  field-sizing: content;
+}
+
+
+.button-container{
+  display: flex;
+  margin-left: auto;
+  flex-direction: column;
+  gap: 5px;
+  flex-grow: 0; /* Only takes as much space as it needs */
+    flex-shrink: 0;
+}
+
+
+
+
+
+.save-btn,.view-btn{
+  width: 100%;
+}
+
+::ng-deep .save-btn button,::ng-deep .view-btn button{
+  width: 100%;
 }
 
 .btn-stepper{
@@ -141,13 +193,56 @@
     overflow: hidden; /* Hide content that exceeds max-height */
   }
   
-  .step-content h3 {
+  .step-content h3,.step-content div.title {
     font-size: 18px;
     margin: 0;
     height: 40px;
     display: flex;
     align-items: center;
   }
+
+  .title input{
+    padding: 5px 10px 5px 35px;
+  }
+
+  ::ng-deep .save-title span{
+    transform: translateY(1px) ;
+  }
+  ::ng-deep .save-title span:hover{
+    color: green;
+    transform: scale(1.05) translateY(1px);
+  }
+
+  /*challenge name style*/
+  .name-container{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    white-space: nowrap;            /* Prevent line breaks */
+    overflow: hidden;               /* Hide content that overflows */
+    text-overflow: ellipsis;
+  }
+
+  .name-container input{
+    padding: 5px 10px 5px 35px;
+  }
+
+  .name-container h2{
+    padding: 0;
+    margin: 0;
+    font-size: 24px;
+  }
+
+  .description-container{
+    display: flex;
+    gap: 10px;
+  }
+
+  .description-container p{
+    margin: 0;
+  }
+
+  
 
   .active-content {
     height: auto; /* Set a max-height when active (adjust as needed) */
@@ -184,6 +279,12 @@
   
   
 /*************** the templates **********************/
+.template-container{
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
 /* General styles for template boxes */
 .template-box {
   width: 200px;
@@ -191,7 +292,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 15px;
   border-radius: 8px;
   text-align: center;
   font-size: 18px;
@@ -240,5 +340,93 @@
   font-family: 'Roboto', sans-serif;
   background-size: 300px;
   font-weight: 700;
+}
+
+/*messages style*/
+::ng-deep .publish-dialogue .p-message-wrapper{
+  padding: 5px 10px;
+}
+
+::ng-deep .publish-dialogue .p-message-wrapper .p-message-icon{
+  display: flex;
+  align-items: center;
+}
+
+::ng-deep .publish-dialogue .p-dialog-header{
+  padding-bottom: 10px;
+}
+
+.publish-dialogue .message-container{
+  display: flex;
+  align-items: center;
+}
+
+.publish-dialogue .message-container i{
+  font-size: 20px;
+  margin-right: 10px;
+}
+
+.publish-dialogue .message-container p{
+  margin: 0 5px;
+}
+
+::ng-deep .publish-dialogue .reject-button-hidden{
+  display: none;
+}
+
+/* Custom CSS for red reject button */
+::ng-deep .reject-button-red  {
+  background-color: #f44336 !important; /* Red background */
+  color: white !important;              /* White text */
+  border: 1px solid #f44336 !important; /* Border color */
+}
+
+/* Optional: You can adjust hover and focus states if needed */
+::ng-deep .reject-button-red:hover {
+  background-color: #d32f2f !important; /* Darker red on hover */
+  border: 1px solid #d32f2f !important;  /* Border color on hover */
+}
+
+
+/*view dialogue*/
+::ng-deep .view-container{
+  position: relative;
+}
+
+::ng-deep .view-container .p-dialog{
+  overflow: hidden;
+}
+
+::ng-deep .view-container .p-dialog-content{
+  padding: 0;
+}
+
+.sleek-dark-template{
+  background: url(../../assets/sleek-dark-template1.png);
+  background-size: 300px;
+}
+
+::ng-deep .sleek-dark-template .p-dialog-content{
+  background: url(../../assets/sleek-dark-template1.png);
+  background-size: 300px;
+}
+::ng-deep .view-container .p-dialog-header{
+  background-color: transparent;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  padding: 10px;
+}
+
+.view-container .challenge-name{
+  text-align: center;
+  margin: 0;
+  padding: 20px 10px 10px 10px;
+}
+
+.view-container.sleek-dark-template .challenge-name{
+  color: #F39C12;
+  font-family: 'Roboto', sans-serif;
+  background-color: transparent;
 }
 
