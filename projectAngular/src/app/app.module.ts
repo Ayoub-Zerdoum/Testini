@@ -53,6 +53,17 @@ import { Quiz1Component } from './questions/quiz1/quiz1.component';
 import { HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http';
 import { CustomStepperComponent } from './custom-stepper/custom-stepper.component';
 import { QRQuestionComponent } from './questions/qr-question/qr-question.component';
+import { ToastModule } from 'primeng/toast';
+import { MessageService, ConfirmationService } from 'primeng/api';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+
+import { TreeTableModule } from 'primeng/treetable';
+
+import { TreeModule } from 'primeng/tree';
+
+
+
+
 
 
 
@@ -88,10 +99,10 @@ import { QRQuestionComponent } from './questions/qr-question/qr-question.compone
     ToolbarModule,
     DividerModule,
     SelectButtonModule, TagModule,
-    SplitterModule, DragDropModule
+    SplitterModule, DragDropModule, ToastModule, ConfirmDialogModule, TreeTableModule, TreeModule
   ],
   providers: [
-    provideClientHydration(), provideHttpClient(withFetch())
+    provideClientHydration(), provideHttpClient(withFetch()), MessageService, ConfirmationService
 
   ],
   bootstrap: [AppComponent]
