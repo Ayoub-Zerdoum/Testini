@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SessionDTO } from '../entities/Session';
 import { SessionService } from '../services/session.service';
 import { MergeDTO, OperationM } from '../entities/MergeDTO';
+import { MergeService } from '../services/merge.service';
 
 @Component({
   selector: 'app-report-card',
@@ -17,13 +18,16 @@ export class ReportCardComponent implements OnInit {
   mergeSessionsDialog: boolean = false;
   selectedSessions: SessionDTO[] = [];
   selectedNames: string[] = [];
+
   selectedOperation: string = '';
   coefficients: { [sessionTitle: string]: number } = {}; // Coefficient input values for each session
   sessionSuggestions: string[] = []; // Suggestions for autocomplete
   operationOptions: string[] = ['Max', 'Avg', 'Coef Special'];
   mergeTitle: string = '';
 
-  constructor(private sessionService: SessionService) { }
+  mergeDtos!: MergeDTO[];
+
+  constructor(private sessionService: SessionService, private mergeService: MergeService) { }
 
   ngOnInit() {
     this.breadcrumbItems = [
@@ -32,8 +36,23 @@ export class ReportCardComponent implements OnInit {
       { label: 'MS - Mathématiques - 2ème Période' }
     ];
 
+    this.loadMerge();
     this.loadSessions();
+
+    console.log(this.mergeDtos);
   }
+
+  loadMerge() {
+    this.mergeService.getMergesByClassroomId(1).subscribe({
+      next: (data: MergeDTO[]) => {
+        this.mergeDtos = data;
+      },
+      error: (error) => {
+        console.error('Error fetching merge DTOs:', error);
+      }
+    });
+  }
+
 
   loadSessions() {
     this.sessionService.getAllSessions().subscribe(

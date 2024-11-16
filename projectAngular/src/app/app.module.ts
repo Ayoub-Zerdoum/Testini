@@ -36,7 +36,7 @@ import { InputIconModule } from 'primeng/inputicon';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { MessagesModule } from 'primeng/messages';
 
-import { ConfirmationService} from 'primeng/api';
+import { ConfirmationService } from 'primeng/api';
 
 import { TreeTableModule } from 'primeng/treetable';
 
@@ -68,6 +68,15 @@ import { Quiz1Component } from './questions/quiz1/quiz1.component';
 import { HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http';
 import { CustomStepperComponent } from './custom-stepper/custom-stepper.component';
 import { QRQuestionComponent } from './questions/qr-question/qr-question.component';
+
+
+import { TreeTableModule } from 'primeng/treetable';
+
+import { TreeModule } from 'primeng/tree';
+
+
+
+
 
 
 
@@ -103,15 +112,22 @@ import { QRQuestionComponent } from './questions/qr-question/qr-question.compone
     ToolbarModule,
     DividerModule,
     SelectButtonModule, TagModule,
+<<<<<<< HEAD
     SplitterModule, DragDropModule,
     ToastModule,
     IconFieldModule, InputIconModule,
     ConfirmDialogModule,
     MessagesModule,
     TreeTableModule
+=======
+
+    SplitterModule, DragDropModule, ToastModule, ConfirmDialogModule, TreeTableModule, TreeModule, IconFieldModule, InputIconModule, MessagesModule
+>>>>>>> 913a90161c9198a21a4aed123ad2c6f203a1c318
   ],
   providers: [
-    provideClientHydration(), provideHttpClient(withFetch()),MessageService,ConfirmationService
+    provideClientHydration(), provideHttpClient(withFetch()), MessageService, ConfirmationService
+
+
   ],
   bootstrap: [AppComponent]
 })
