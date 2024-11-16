@@ -38,6 +38,7 @@ import { MessagesModule } from 'primeng/messages';
 
 import { ConfirmationService} from 'primeng/api';
 
+import { TreeTableModule } from 'primeng/treetable';
 
 
 
@@ -106,7 +107,8 @@ import { QRQuestionComponent } from './questions/qr-question/qr-question.compone
     ToastModule,
     IconFieldModule, InputIconModule,
     ConfirmDialogModule,
-    MessagesModule
+    MessagesModule,
+    TreeTableModule
   ],
   providers: [
     provideClientHydration(), provideHttpClient(withFetch()),MessageService,ConfirmationService
