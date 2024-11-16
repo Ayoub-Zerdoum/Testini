@@ -1,5 +1,6 @@
 package com.example.backend.entites;
 
+import com.example.backend.enums.ChallengeStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -27,11 +28,14 @@ public class Challenge implements Serializable {
     private String title;
     private String description;
 
-    @Temporal(TemporalType.TIME)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
 
     private String challengeData; // Assuming JSON stored as a String
     private String templateName;
+
+    @Enumerated(EnumType.STRING)
+    private ChallengeStatus status; // New status field with enum type
 
     @ManyToOne
     private Instructor instructorCH;

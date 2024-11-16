@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { ChallengeService } from '../services/challenge.service';
 
 @Component({
   selector: 'app-template-gallery',
@@ -6,6 +8,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./template.component.scss']
 })
 export class TemplateComponent {
+  constructor(
+      private router: Router,
+      private challengeService: ChallengeService
+  ) {}
+
   types = [
     { label: 'Quiz', value: 'quiz' },
     { label: 'Game', value: 'game' },
@@ -30,4 +37,16 @@ export class TemplateComponent {
   isTimeLimited: boolean = true;
   sortOrder: string = 'desc';
   displayMode: string = 'A';
+
+  createNewChallenge(instructorId: number): void {
+    this.challengeService.createEmptyChallenge(instructorId).subscribe({
+        next: (response) => {
+            const challengeId = response.id; // Get the ID from the response
+            this.router.navigate(['/inside/challenge-creator', challengeId]); // Navigate with the ID
+        },
+        error: (err) => {
+            console.error('Error creating challenge:', err);
+        }
+    });
+  }
 }

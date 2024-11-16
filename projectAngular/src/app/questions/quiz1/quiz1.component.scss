@@ -22,10 +22,16 @@
     padding: 5px;
   }
 
-  .mode-creation.container,.mode-ask.container {
+  .mode-creation.container {
     width: 100%;
     padding: 8px 20px;
     background-color: transparent;
+  }
+
+  .mode-ask.container{
+    padding: 20px 30px;
+    background-color: transparent;
+    width: 100%;
   }
 
   .mode-view .question-text {
@@ -281,10 +287,11 @@
 }
 /*********************************************************************************************************/
 /* Sleek dark template*/
+/*
 .container.sleek-dark-template{
   background: url(../../../assets/sleek-dark-template1.png);
   background-size: 300px;
-}
+}*/
 
 .container.sleek-dark-template {
   font-family: 'Roboto', sans-serif; /* Primary font */

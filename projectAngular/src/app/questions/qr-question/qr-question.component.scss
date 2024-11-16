@@ -10,6 +10,12 @@
     padding: 5px;
 }
 
+.mode-ask.container{
+  padding: 60px 30px 30px 30px;
+  background-color: transparent;
+  width: 100%;
+}
+
 .mode-view .question-text {
     font-size: 0.8rem; /* Default font size */
     margin-top: 0;
@@ -31,10 +37,16 @@
   }
 
 /********* Mode Creation *********/
-.mode-creation.container,.mode-ask.container {
+.mode-creation.container {
     width: 100%;
     padding: 8px 20px;
     background-color: transparent;
+}
+
+.mode-ask.container{
+  padding: 20px 30px;
+  background-color: transparent;
+  width: 100%;
 }
 
 .mode-creation .question-text{
@@ -102,4 +114,41 @@
     field-sizing: content;
 }
 
+
+
+/*********************************************************************************************************/
+/* Sleek dark template*/
+/*
+.container.sleek-dark-template{
+  background: url(../../../assets/sleek-dark-template1.png);
+  background-size: 300px;
+}*/
+
+.container.sleek-dark-template {
+  font-family: 'Roboto', sans-serif; /* Primary font */
+}
+
+.container.sleek-dark-template .question-text {
+  font-weight: 700; /* Bold for titles */
+  color: #ffffff;
+}
+
+.container.sleek-dark-template .question-description strong{
+  color: #F39C12;
+}
+
+.container.sleek-dark-template{
+  color: white;
+}
+
+.container.sleek-dark-template.mode-ask textarea{
+  border-color: #F39C12;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+}
+
+.container.sleek-dark-template.mode-ask textarea:focus{
+  border-color:#cc8514;
+  outline: 1px solid #cc8514;
+}
 

@@ -28,6 +28,20 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 import { SplitterModule } from 'primeng/splitter';
 import { DragDropModule } from 'primeng/dragdrop';
 
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { MessagesModule } from 'primeng/messages';
+
+import { ConfirmationService} from 'primeng/api';
+
+
+
+
+
 
 
 
@@ -88,11 +102,14 @@ import { QRQuestionComponent } from './questions/qr-question/qr-question.compone
     ToolbarModule,
     DividerModule,
     SelectButtonModule, TagModule,
-    SplitterModule, DragDropModule
+    SplitterModule, DragDropModule,
+    ToastModule,
+    IconFieldModule, InputIconModule,
+    ConfirmDialogModule,
+    MessagesModule
   ],
   providers: [
-    provideClientHydration(), provideHttpClient(withFetch())
-
+    provideClientHydration(), provideHttpClient(withFetch()),MessageService,ConfirmationService
   ],
   bootstrap: [AppComponent]
 })

@@ -39,7 +39,7 @@
   </div>
 
   <!-- Mode: Ask -->
-  <div *ngSwitchCase="'ask'" class="container mode-ask">
+  <div *ngSwitchCase="'ask'" class="container mode-ask" [ngClass]="template">
     <p class="question-text"><strong>Q{{QADataView.number}}: </strong>{{ questionData.data.text }}</p>
     <p class="question-description">
         <strong *ngIf="questionData.data.description != '' && questionData.data.description">Description: </strong>
