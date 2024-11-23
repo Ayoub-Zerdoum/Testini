@@ -1,20 +1,21 @@
 package com.example.backend.services.ServiceImpl;
 
-import com.example.backend.dtos.MergeDTO;
-import com.example.backend.dtos.Result;
-import com.example.backend.dtos.SessionDTO;
+import com.example.backend.dtos.*;
 import com.example.backend.entites.*;
 import com.example.backend.mappers.SessionMapper;
+import com.example.backend.repositoris.MergeRepository;
 import com.example.backend.repositoris.SessionRepository;
 import com.example.backend.repositoris.ChallengeRepository;
 import com.example.backend.repositoris.ClassroomRepository;
 import com.example.backend.services.SessionService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.*;
 
 @Service
@@ -25,11 +26,14 @@ public class SessionServiceImpl implements SessionService {
     private final ChallengeRepository challengeRepository;
     private final ClassroomRepository classroomRepository;
     private final SessionMapper sessionMapper;
+    private final MergeRepository mergeRepository;
 
     @Override
-    public void saveSession(Session session, Long challengeId, Long classroomId) {
+    public void saveSession(SessionSaveUpdateDTO sessionSaveUpdateDto, Long challengeId, Long classroomId) {
         Optional<Challenge> challengeOptional = challengeRepository.findById(challengeId);
         Optional<Classroom> classroomOptional = classroomRepository.findById(classroomId);
+        Session session = new Session();
+        session=sessionMapper.toSessionFromSessionSaveUpdateDTO(sessionSaveUpdateDto);
 
         if (challengeOptional.isPresent() && classroomOptional.isPresent()) {
             session.setChallengeSH(challengeOptional.get());
@@ -41,12 +45,149 @@ public class SessionServiceImpl implements SessionService {
     }
 
     @Override
+    public void updateSession(SessionSaveUpdateDTO sessionSaveUpdateDto) {
+
+        Session session = sessionMapper.toSessionFromSessionSaveUpdateDTO(sessionSaveUpdateDto);
+        Session oldSession = sessionRepository.findById(session.getId()).orElseThrow(EntityNotFoundException::new);
+        session.setChallengeSH(oldSession.getChallengeSH());
+        session.setClassroomSH(oldSession.getClassroomSH());
+        sessionRepository.save(session);
+
+
+    }
+
+    @Override
     public List<Session> getAllSessions() {
         return sessionRepository.findAll();
 
     }
 
+    @Override
+    public Pair<List<SessionNodeDto>, List<SessionNodeDto>> splitSessionByClassroomId(Long classroomId) {
+        List<Merge> merges = mergeRepository.findByClassroomMerge_Id(classroomId);
+        List<Session> sessions = sessionRepository.findByClassroomId(classroomId);
 
+        List<Long> MergedSessionId=new ArrayList<>();
+        merges.forEach(merge -> MergedSessionId.addAll(merge.getIdSessions()));
+        List<SessionNodeDto> noMergedSessions=new ArrayList<>();
+        List<SessionNodeDto> mergedSessions=new ArrayList<>();
+        sessions.forEach(session -> {
+            SessionNodeDto sessionNodeDto=new SessionNodeDto();
+
+            sessionNodeDto.setData(sessionMapper.toNodeSessionData(sessionMapper.toSessionDTO(session)) );
+            if (MergedSessionId.contains(sessionNodeDto.getData().getId() ))
+                mergedSessions.add(sessionNodeDto);
+            else
+                noMergedSessions.add(sessionNodeDto);
+
+        });
+
+        return Pair.of(noMergedSessions, mergedSessions);
+
+
+
+    }
+
+    @Override
+    public List<SessionNodeDto> treenizationSessionByClassroomId(Long classroomId) {
+        Pair<List<SessionNodeDto>, List<SessionNodeDto>> pair=splitSessionByClassroomId(classroomId);
+        List<SessionNodeDto> noMergedSessionNodeDto=pair.getFirst();
+        List<SessionNodeDto> mergedSessionNodeDto=pair.getSecond();
+        List<Merge> merges = mergeRepository.findByClassroomMerge_Id(classroomId);
+        List<Long> MergedSessionId=new ArrayList<>();
+        merges.forEach(merge -> MergedSessionId.addAll(merge.getIdSessions()));
+        HashMap<Long, SessionNodeDto> sessionNodeDtoHashMap=new HashMap<>();
+        mergedSessionNodeDto.forEach(sessionNodeDto ->
+                sessionNodeDtoHashMap.put(sessionNodeDto.getData().getId(), sessionNodeDto)
+        );
+
+
+        while (!merges.isEmpty()) {
+            Merge merge = merges.get(0);
+            if (sessionNodeDtoHashMap.keySet().containsAll(merge.getIdSessions())) {
+                SessionNodeDto sessionNodeDto = new SessionNodeDto();
+                sessionNodeDto.setData(new DataNodeSession());
+                sessionNodeDto.setChildren(new ArrayList<>());
+                sessionNodeDto.getData().setId(merge.getId());
+                sessionNodeDto.getData().setTitle(merge.getTitle());
+
+                Map<String, List<Double>> studentScores = new HashMap<>();
+
+                // Gather scores for all students across sessions
+                merge.getIdSessions().forEach(sessionId -> {
+                    SessionNodeDto childNode = sessionNodeDtoHashMap.get(sessionId);
+                    sessionNodeDto.getChildren().add(childNode);
+
+                    childNode.getData().getStudents().forEach((studentEmail, studentData) -> {
+                        double score = (double) studentData.getOrDefault("score", 0.0);
+                        studentScores.computeIfAbsent(studentEmail, k -> new ArrayList<>()).add(score);
+                    });
+                });
+
+                // Ensure every student has a score for every session (missing scores are treated as 0)
+                merge.getIdSessions().forEach(sessionId -> {
+                    studentScores.forEach((studentEmail, scores) -> {
+                        if (scores.size() < merge.getIdSessions().size()) {
+                            scores.add(0.0); // Add missing score as 0
+                        }
+                    });
+                });
+
+                Map<String, Map<String, Object>> mergedStudents = new HashMap<>();
+
+                // Perform aggregation based on the operation
+                studentScores.forEach((studentEmail, scores) -> {
+                    double aggregatedScore = 0.0;
+                    switch (merge.getOperation()) {
+                        case MAX:
+                            aggregatedScore = scores.stream().max(Double::compareTo).orElse(0.0);
+                            break;
+                        case AVG:
+                            aggregatedScore = scores.stream().mapToDouble(Double::doubleValue).average().orElse(0.0);
+                            break;
+                        case COEFS:
+                            double weightedSum = 0.0;
+                            double totalCoef = 0.0;
+                            for (int i = 0; i < scores.size(); i++) {
+                                int coef = merge.getCoefSessions().get(i);
+                                weightedSum += scores.get(i) * coef;
+                                totalCoef += coef;
+                            }
+                            aggregatedScore = totalCoef != 0 ? weightedSum / totalCoef : 0.0;
+                            break;
+                    }
+
+                    // Store aggregated score
+                    Map<String, Object> studentData = new HashMap<>();
+                    studentData.put("score", aggregatedScore);
+                    mergedStudents.put(studentEmail, studentData);
+                });
+
+                // Assign aggregated student data to merged node
+                sessionNodeDto.getData().setStudents(mergedStudents);
+
+                // Add to appropriate collection
+                if (MergedSessionId.contains(merge.getId())) {
+                    sessionNodeDtoHashMap.put(sessionNodeDto.getData().getId(), sessionNodeDto);
+                } else {
+                    noMergedSessionNodeDto.add(sessionNodeDto);
+                }
+
+                merges.remove(0);
+            } else {
+                merges.remove(0);
+                merges.add(merge);
+            }
+        }
+
+
+
+        return noMergedSessionNodeDto;
+
+
+
+
+    }
 
 
     @Override
@@ -130,9 +271,13 @@ public class SessionServiceImpl implements SessionService {
 
 
     @Override
-    public Session getSessionById(Long sessionId) {
-        return sessionRepository.findById(sessionId)
-                .orElseThrow(() -> new IllegalArgumentException("Session not found with ID: " + sessionId));
+    public SessionNodeDto getSessionById(Long sessionId) {
+        Session session = sessionRepository.findById(sessionId).orElseThrow(EntityNotFoundException::new);
+        SessionNodeDto sessionNodeDto = new SessionNodeDto();
+        sessionNodeDto.setData(sessionMapper.toNodeSessionData(sessionMapper.toSessionDTO(session)));
+        return sessionNodeDto;
+
+
     }
 
     @Override

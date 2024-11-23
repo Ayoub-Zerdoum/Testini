@@ -12,3 +12,6 @@ export interface MergeDTO {
     iDSessions: number[];
     coefSessions: number[];
 }
+
+
+

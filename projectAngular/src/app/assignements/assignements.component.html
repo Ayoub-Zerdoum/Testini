@@ -1,54 +1,52 @@
 <div class="assignements-display">
-    <h1>Assignements</h1>
-    <p-toolbar class="toolbar">
-        <div class="p-toolbar-group-start title-search">
-            <div>Search By :</div>
-            <div class="btn-container">
-                <p-selectButton 
-                    class="select-btn"
-                    [options]="stateOptions" 
-                    [(ngModel)]="value" 
-                    optionLabel="label" 
-                    optionValue="value" />
-                <span class="p-input-icon-left">
-                    <i class="pi pi-search"></i>
-                    <input pInputText placeholder="Search" />
-                </span>
-            </div>
+  <h1>Assignements</h1>
+  <p-toolbar class="toolbar">
+    <div class="p-toolbar-group-start title-search">
+      <div>Search By :</div>
+      <div class="btn-container">
+        <p-selectButton class="select-btn" [options]="stateOptions" [(ngModel)]="value" optionLabel="label"
+          optionValue="value" />
+        <span class="p-input-icon-left">
+          <i class="pi pi-search"></i>
+          <input pInputText placeholder="Search" />
+        </span>
+      </div>
+    </div>
+    <div class="p-toolbar-group-end">
+      <div class="menu">
+        <div class="menu-item" *ngFor="let item of menuItems" [class.selected]="selectedItem === item"
+          (click)="selectMenu(item)">
+          {{ item }}
         </div>
-        <div class="p-toolbar-group-end">
-            <div class="menu">
-                <div 
-                    class="menu-item" 
-                    *ngFor="let item of menuItems" 
-                    [class.selected]="selectedItem === item"
-                    (click)="selectMenu(item)">
-                    {{ item }}
-                </div>
-            </div>                     
-        </div>
-        
-    </p-toolbar>
+      </div>
+    </div>
+
+  </p-toolbar>
+
+  <div class="flex justify-content-center mb-3">
+    <p-selectButton [multiple]="false" optionLabel="name" optionValue="class" />
+  </div>
+  <p-treeTable [value]="files" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Name</th>
+        <th>Size</th>
+        <th>Type</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
+      <tr [ttRow]="rowNode">
+        <td>
+          <p-treeTableToggler [rowNode]="rowNode" />
+          {{ rowData.name }}
+        </td>
+        <td>{{ rowData.size }}</td>
+        <td>{{ rowData.type }}</td>
+      </tr>
+    </ng-template>
+  </p-treeTable>
 
 
-    <p-treeTable [value]="files" [columns]="cols">
-        <ng-template pTemplate="header">
-          <tr>
-            <th *ngFor="let col of cols">{{ col.header }}</th>
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
-          <tr>
-            <td *ngFor="let col of cols">
-              <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
-              {{ rowData[col.field] }}
-            </td>
-          </tr>
-        </ng-template>
-      </p-treeTable>
-      
 
 
-    
-    
 </div>

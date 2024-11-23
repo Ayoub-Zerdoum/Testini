@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { SessionDTO } from '../entities/Session';
+import { SessionNodeDto } from '../entities/SessionNodeDto';
 
 
 @Injectable({
@@ -40,5 +41,12 @@ export class SessionService {
     // Get static integer (for testing purposes)
     getStaticInteger(): Observable<number> {
         return this.http.get<number>(`${this.apiUrl}/int`);
+    }
+
+
+
+    // Get the treenization of sessions by classroom ID
+    treenizationSessionByClassroomId(classroomId: number): Observable<SessionNodeDto[]> {
+        return this.http.get<SessionNodeDto[]>(`${this.apiUrl}/treenization/${classroomId}`);
     }
 }
