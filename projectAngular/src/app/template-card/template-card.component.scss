@@ -32,7 +32,6 @@ img {
     border-radius: 5px;
     cursor: pointer;
     float: right;
-    margin-top: -7%;
 }
 
 .new-challenge-button:hover{
@@ -88,7 +87,11 @@ img {
     background: rgba($color: #000000, $alpha: 0.7);
     width: 100%;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    padding: 0px 10px;
 }
+
 
 .info:hover {
     position: absolute;
@@ -102,4 +105,9 @@ img {
 .info:hover .quiz-footer {
     display: block;
 
+}
+
+
+.sous_info{
+    width: 100%;
 }

@@ -26,25 +26,46 @@
   <div class="flex justify-content-center mb-3">
     <p-selectButton [multiple]="false" optionLabel="name" optionValue="class" />
   </div>
-  <p-treeTable [value]="files" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
+  
+  <!--display A-->
+  <p-table *ngIf="displayMode === 'A'" [value]="assignements" styleClass="p-datatable-sm" class="challenge-table">
     <ng-template pTemplate="header">
       <tr>
-        <th>Name</th>
-        <th>Size</th>
-        <th>Type</th>
+        <th><span class="scroll-text">Completion</span></th>
+        <th>Title</th>
+        <th>Classroom</th>
+        <th>Deadline</th>
+        <th>Status</th>
+        <th>Actions</th>
       </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
-      <tr [ttRow]="rowNode">
+  
+    <ng-template pTemplate="body" let-assignement let-rowIndex="rowIndex">
+      <tr>
         <td>
-          <p-treeTableToggler [rowNode]="rowNode" />
-          {{ rowData.name }}
+          <span [ngClass]="getCompletionColor(assignement)">{{ assignement.NbSubmissions }}</span>/{{ assignement.NbStudents }}
         </td>
-        <td>{{ rowData.size }}</td>
-        <td>{{ rowData.type }}</td>
+        
+        <td>{{ assignement.title }}</td>
+        <td>{{ assignement.classroom}}</td>
+        <td>{{ assignement.deadline | date: 'yyyy-MM-dd' }}</td>
+        <td>
+          <p-tag
+            [value]="assignement.status"
+            [severity]="getStatusSeverity(assignement.status)"
+          ></p-tag>
+        </td>
+        <td class="action-container">
+            <div class="action-btn-container">
+                <p-button class="btn" severity="success"><i class="fa fa-eye"></i></p-button>
+                <p-button class="btn" severity="contrast"><i class="fa fa-list"></i></p-button>
+                <p-button class="btn" severity="danger"><i class="fa fa-trash"></i></p-button>
+            </div>
+            
+        </td>
       </tr>
     </ng-template>
-  </p-treeTable>
+  </p-table>
 
 
 

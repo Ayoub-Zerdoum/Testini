@@ -41,6 +41,14 @@ export class TemplateComponent {
   sortOrder: string = 'desc';
   displayMode: string = 'A';
 
+
+  menuItems: string[] = ['Newest', 'Most Popular'];
+  selectedItem: string | null = 'Newest';
+
+  selectMenu(item: string): void {
+    this.selectedItem = item;
+  }
+
   createNewChallenge(instructorId: number): void {
     this.challengeService.createEmptyChallenge(instructorId).subscribe({
         next: (response) => {

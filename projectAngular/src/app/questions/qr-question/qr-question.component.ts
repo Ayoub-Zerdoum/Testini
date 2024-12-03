@@ -15,17 +15,12 @@ interface Question {
   styleUrls: ['./qr-question.component.scss']
 })
 export class QRQuestionComponent {
-  /*
+  
   ngOnInit(): void {
-    if(this.questionData !== null){
-      this.question = this.questionData;
+    if (this.questionData) {
+      this.question = { ...this.questionData }; // Use spread operator to copy data
     }
-    console.log("hello")
-    console.log(this.questionData)
-    console.log(this.question)
   }
-    */
-  ngOnInit(): void {}
 
  @Input() questionData: any;
 

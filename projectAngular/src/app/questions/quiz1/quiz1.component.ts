@@ -16,6 +16,8 @@ export class Quiz1Component {
     if(this.questionData !== null){
       this.question = this.questionData;
     }
+
+    console.log(this.questionData)
   }
   
   @Input() mode?: 'view' | 'creation' | 'ask';

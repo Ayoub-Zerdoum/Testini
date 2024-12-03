@@ -26,6 +26,8 @@ export class AssignementsComponent{
         { label: 'Classroom', value: 'classroom' },
     ];
 
+    
+
 
 
   menuItems: string[] = ['Newest', 'ALL', 'OPEN','CLOSED'];
@@ -36,45 +38,134 @@ export class AssignementsComponent{
   }
 
 
-  ////////////////////////
-  files: TreeNode[] = [];
-  cols: any[] = [];
-
+  displayMode = 'A'; // Control display mode
+  assignements: any[] = [];
+  
   ngOnInit() {
-    this.cols = [
-      { field: 'name', header: 'Name' },
-      { field: 'size', header: 'Size' },
-      { field: 'type', header: 'Type' },
+    this.assignements = [
+      {
+        title: 'Math Exam',
+        classroom: 'Math 101',
+        deadline: '2024-12-05',
+        startingDate: '2024-12-01',
+        NbSubmissions: 25,
+        NbStudents: 30,
+        status: 'Open'  // Assignment is open (currently ongoing)
+      },
+      {
+        title: 'Physics Lab Report',
+        classroom: 'Physics 102',
+        deadline: '2024-12-10',
+        startingDate: '2024-12-02',
+        NbSubmissions: 0,  // No submissions yet (Upcoming)
+        NbStudents: 20,
+        status: 'Upcoming'  // Assignment hasn't started yet
+      },
+      {
+        title: 'Chemistry Quiz',
+        classroom: 'Chemistry 101',
+        deadline: '2024-11-30',
+        startingDate: '2024-11-20',
+        NbSubmissions: 18,
+        NbStudents: 20,
+        status: 'Closed'  // Assignment is past deadline (Closed, red)
+      },
+      {
+        title: 'Biology Assignment',
+        classroom: 'Biology 101',
+        deadline: '2024-12-07',
+        startingDate: '2024-12-01',
+        NbSubmissions: 15,
+        NbStudents: 25,
+        status: 'Open'  // Assignment is open (currently ongoing)
+      },
+      {
+        title: 'Computer Science Project',
+        classroom: 'CS 101',
+        deadline: '2024-12-12',
+        startingDate: '2024-12-03',
+        NbSubmissions: 0,  // No submissions yet (Upcoming)
+        NbStudents: 15,
+        status: 'Upcoming'  // Assignment hasn't started yet
+      },
+      {
+        title: 'History Paper',
+        classroom: 'History 101',
+        deadline: '2024-12-02',
+        startingDate: '2024-11-28',
+        NbSubmissions: 28,
+        NbStudents: 30,
+        status: 'Closed'  // Assignment is past deadline (Closed, red)
+      },
+      {
+        title: 'English Essay',
+        classroom: 'English 101',
+        deadline: '2024-12-15',
+        startingDate: '2024-12-05',
+        NbSubmissions: 0,  // No submissions yet (Upcoming)
+        NbStudents: 20,
+        status: 'Upcoming'  // Assignment hasn't started yet
+      },
+      {
+        title: 'Art Project',
+        classroom: 'Art 101',
+        deadline: '2024-12-08',
+        startingDate: '2024-12-01',
+        NbSubmissions: 22,
+        NbStudents: 30,
+        status: 'Open'  // Assignment is open (currently ongoing)
+      },
+      {
+        title: 'Geography Assignment',
+        classroom: 'Geography 101',
+        deadline: '2024-11-29',
+        startingDate: '2024-11-18',
+        NbSubmissions: 10,
+        NbStudents: 20,
+        status: 'Closed'  // Assignment is past deadline (Closed, red)
+      },
+      {
+        title: 'Economics Paper',
+        classroom: 'Economics 101',
+        deadline: '2024-12-04',
+        startingDate: '2024-12-01',
+        NbSubmissions: 0,  // No submissions yet (Upcoming)
+        NbStudents: 18,
+        status: 'Upcoming'  // Assignment hasn't started yet
+      }
     ];
-
-    this.files = [
-      {
-        data: { name: 'Documents', size: '75kb', type: 'Folder' },
-        children: [
-          {
-            data: { name: 'Work', size: '55kb', type: 'Folder' },
-            children: [
-              { data: { name: 'Expenses.doc', size: '30kb', type: 'Document' } },
-              { data: { name: 'Resume.doc', size: '25kb', type: 'Document' } },
-            ],
-          },
-          { data: { name: 'Home', size: '20kb', type: 'Folder' } },
-        ],
-      },
-      {
-        data: { name: 'Pictures', size: '150kb', type: 'Folder' },
-        children: [
-          { data: { name: 'Travel.png', size: '100kb', type: 'Image' } },
-          { data: { name: 'Family.png', size: '50kb', type: 'Image' } },
-        ],
-      },
-      {
-        data: { name: 'Videos', size: '300mb', type: 'Folder' },
-        children: [
-          { data: { name: 'Movie.mp4', size: '250mb', type: 'Video' } },
-          { data: { name: 'Clip.mp4', size: '50mb', type: 'Video' } },
-        ],
-      },
-    ];
+    
+    
   }
+
+  getStatusSeverity(status: string): 'secondary' | 'info' | 'danger' {
+    switch (status) {
+      case 'Upcoming':
+        return 'secondary';
+      case 'Open':
+        return 'info';
+      case 'Closed':
+        return 'danger';
+      default:
+        return 'info'; // Default severity
+    }
+  }
+
+  // Function to calculate the percentage completion
+  getCompletionPercentage(assignement: any): number {
+    return (assignement.NbSubmissions / assignement.NbStudents) * 100;
+  }
+
+  // Function to return the color class based on completion percentage
+  getCompletionColor(assignement: any): string {
+    const percentage = this.getCompletionPercentage(assignement);
+    if (percentage <= 33) {
+      return 'completion-red'; // Red for 0–33%
+    } else if (percentage <= 66) {
+      return 'completion-orange'; // Orange for 34–66%
+    } else {
+      return 'completion-green'; // Green for 67–100%
+    }
+  }
+
 }
