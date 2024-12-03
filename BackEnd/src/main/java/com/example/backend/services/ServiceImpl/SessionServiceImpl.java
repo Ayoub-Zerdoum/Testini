@@ -270,6 +270,7 @@ public class SessionServiceImpl implements SessionService {
 
 
 
+   
     @Override
     public SessionNodeDto getSessionById(Long sessionId) {
         Session session = sessionRepository.findById(sessionId).orElseThrow(EntityNotFoundException::new);

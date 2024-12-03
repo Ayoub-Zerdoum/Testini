@@ -100,7 +100,7 @@ export class ReportCardComponent implements OnInit {
       id: 0, // Assign a default or actual ID if available
       title: this.mergeTitle,
       operation: this.selectedOperation as OperationM, // Cast to OperationM enum
-      iDSessions: this.selectedSessions.map(session => session.id),
+      idSessions: this.selectedSessions.map(session => session.id),
       coefSessions: this.selectedOperation === 'Coef Special'
         ? this.selectedSessions.map(session => this.coefficients[session.title] || 1)
         : []

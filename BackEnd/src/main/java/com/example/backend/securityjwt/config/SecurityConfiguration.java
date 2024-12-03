@@ -27,6 +27,8 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 public class SecurityConfiguration {
 
+
+
     private final Logger log = LoggerFactory.getLogger(SecurityConfiguration.class);
 
     private final UserRepository userRepository;
@@ -43,7 +45,7 @@ public class SecurityConfiguration {
                 .disable()
                 .authorizeHttpRequests()
                 .requestMatchers(AntPathRequestMatcher
-                                .antMatcher("/"),
+                                .antMatcher("/**"),
                         AntPathRequestMatcher
                                 .antMatcher("/error"),
                         AntPathRequestMatcher

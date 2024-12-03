@@ -59,6 +59,7 @@ import { Quiz1Component } from './questions/quiz1/quiz1.component';
 import { CustomStepperComponent } from './custom-stepper/custom-stepper.component';
 import { QRQuestionComponent } from './questions/qr-question/qr-question.component';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { NewReportCardComponent } from './new-report-card/new-report-card.component';
 
 
 @NgModule({
@@ -81,6 +82,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
     CustomStepperComponent,
     QRQuestionComponent,
     SessionTreeComponent,
+    NewReportCardComponent,
   ],
   imports: [
     BrowserModule,

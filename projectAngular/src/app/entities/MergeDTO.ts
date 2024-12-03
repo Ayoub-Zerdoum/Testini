@@ -9,7 +9,7 @@ export interface MergeDTO {
     id: number;
     title: string;
     operation: OperationM;
-    iDSessions: number[];
+    idSessions: number[];
     coefSessions: number[];
 }
 

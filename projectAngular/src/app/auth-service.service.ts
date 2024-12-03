@@ -11,8 +11,8 @@ export class AuthServiceService {
 
 
 
-  private apiUrl = 'http://localhost:8090/api/v1/auth';
-  private demoApiUrl = 'http://localhost:8090/api/v1/demo';
+  private apiUrl = 'http://localhost:8080/api/v1/auth';
+  private demoApiUrl = 'http://localhost:8080/api/v1/demo';
   constructor(private http: HttpClient) { }
 
   login(email: string, password: string): Observable<any> {

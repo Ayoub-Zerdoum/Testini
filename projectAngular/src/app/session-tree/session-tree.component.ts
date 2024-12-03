@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { SessionService } from '../services/session.service';
 import { SessionNodeDto } from '../entities/SessionNodeDto';
+import { SessionDTO } from '../entities/Session';
+
 
 @Component({
   selector: 'app-session-tree',
@@ -13,16 +15,42 @@ export class SessionTreeComponent implements OnInit {
   cols: any[] = [];
   selectedId: number | null = null; // ID of the student to display in the dialog
   displayDialog: boolean = false; // Control dialog visibility
+  fathers: SessionDTO[] = [];
+  @Output() SessionEmitter: EventEmitter<SessionDTO[]> = new EventEmitter<SessionDTO[]>();
+
 
   constructor(private sessionService: SessionService) { }
 
+
+
   ngOnInit() {
     this.loadTreeData();
+    this.SessionEmitter.emit(this.fathers);
+
+
   }
 
   loadTreeData() {
     this.sessionService.treenizationSessionByClassroomId(1).subscribe((data: SessionNodeDto[]) => {
       const emails = new Set<string>();
+
+
+
+      data.forEach(Node => {
+        let session: SessionDTO = {
+          id: Node.data.id, title: Node.data.title,
+          results: []
+        };
+
+
+
+
+        this.fathers.push(session);
+
+
+      })
+
+
 
       // Transform data and collect emails
       this.files = this.transformToTreeNodes(data, emails);
