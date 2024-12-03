@@ -10,15 +10,16 @@ import { AssignementsComponent } from './assignements/assignements.component';
 import { ChallengesGalleryComponent } from './challenges-gallery/challenges-gallery.component';
 import { QuizType1Component } from './quiz-type1/quiz-type1.component';
 import { ChallengeCreatorComponent } from './challenge-creator/challenge-creator.component';
+import { NewReportCardComponent } from './new-report-card/new-report-card.component';
 
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'app-quiz-type1', component: QuizType1Component},
+  { path: 'app-quiz-type1', component: QuizType1Component },
   {
     path: 'inside', component: InsideComponent, children: [
       { path: 'home', component: HomeComponent },
-      { path: 'report-card', component: ReportCardComponent },
+      { path: 'report-card', component: NewReportCardComponent },
       { path: 'challenges', component: ChallengesGalleryComponent },
       { path: 'template', component: TemplateComponent },
       { path: 'classroom', component: ClassroomDisplayComponent },

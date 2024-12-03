@@ -7,8 +7,6 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-
-
 @Entity
 @Builder
 @Getter
@@ -20,11 +18,12 @@ import java.util.List;
 public class Session implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String title;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "shared_generator")
+    private Long id;
+
+    private String title;
 
     private String sessionCode;
 
@@ -46,11 +45,6 @@ public class Session implements Serializable {
     @ManyToOne
     private Classroom classroomSH;
 
-
     @OneToMany(mappedBy = "sessionSB")
     private List<Submission> Submissions;
-
-
-
-
 }

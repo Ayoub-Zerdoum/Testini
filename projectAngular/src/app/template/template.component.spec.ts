@@ -10,8 +10,8 @@ describe('TemplateComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [TemplateComponent]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(TemplateComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

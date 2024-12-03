@@ -2,9 +2,12 @@ package com.example.backend.services.ServiceImpl;
 
 import com.example.backend.entites.Submission;
 import com.example.backend.entites.Session;
+import com.example.backend.dtos.SubmissionDTO;
+import com.example.backend.mappers.SubmissionMapper;
 import com.example.backend.repositoris.SubmissionRepository;
 import com.example.backend.repositoris.SessionRepository;
 import com.example.backend.services.SubmissionService;
+import jakarta.validation.constraints.Null;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,16 +21,31 @@ import java.util.Optional;
 public class SubmissionServiceImpl implements SubmissionService {
     private final SubmissionRepository submissionRepository;
     private final SessionRepository sessionRepository;
+    private final SubmissionMapper submissionMapper;
 
     @Override
-    public void saveSubmission(Submission submission, Long sessionId) {
+    public void saveSubmission(SubmissionDTO submissionDTO, Long sessionId) {
         Optional<Session> sessionOptional = sessionRepository.findById(sessionId);
         if (sessionOptional.isPresent()) {
+            Submission submission =submissionMapper.toSubmissionFromSubmissionDTO(submissionDTO);
             submission.setSessionSB(sessionOptional.get());
             submissionRepository.save(submission);
         } else {
             throw new IllegalArgumentException("Session not found with ID: " + sessionId);
         }
+    }
+    @Override
+    public Void updateSubmission(SubmissionDTO submissionDTO)
+    {
+        Submission submission = submissionMapper.toSubmissionFromSubmissionDTO(submissionDTO);
+        Submission OldSubmission = submissionRepository.findById(submission.getId()).orElse(null);
+        if (OldSubmission != null) {
+            OldSubmission.setSessionSB(submission.getSessionSB());
+            submissionRepository.save(OldSubmission);
+
+        }
+        return null;
+
     }
 
     @Override
@@ -36,10 +54,13 @@ public class SubmissionServiceImpl implements SubmissionService {
     }
 
     @Override
-    public Submission getSubmissionById(Long submissionId) {
-        return submissionRepository.findById(submissionId)
-                .orElseThrow(() -> new IllegalArgumentException("Submission not found with ID: " + submissionId));
+    public SubmissionDTO getSubmissionById(Long submissionId) {
+        Optional<Submission> submissionOptional = submissionRepository.findById(submissionId);
+        return submissionOptional.map(submissionMapper::toSubmissionDTOFromSubmission).orElse(null);
+
     }
+
+
 
     @Override
     public void deleteSubmission(Long submissionId) {
