@@ -1,14 +1,19 @@
 package com.example.backend.mappers;
 
 import com.example.backend.dtos.ChallengeDTO;
+import com.example.backend.dtos.ChallengeDisplayDTO;
 import com.example.backend.dtos.ChallengeLoadDTO;
 import com.example.backend.entites.Challenge;
 import com.example.backend.entites.Instructor;
 import com.example.backend.enums.ChallengeStatus;
 import com.example.backend.repositoris.InstructorRepository;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Component
@@ -54,5 +59,32 @@ public class ChallengeMapper {
 
         return challengeDTO;
     }
+
+    public ChallengeDisplayDTO toChallengeDisplayDTO(Challenge challenge){
+        int numQuestions = 0;
+
+        try {
+            // Parse the challengeData JSON to extract the number of questions
+            JSONObject challengeDataJson = new JSONObject(challenge.getChallengeData());
+            if (challengeDataJson.has("questions")) {
+                JSONArray questionsArray = challengeDataJson.getJSONArray("questions");
+                numQuestions = questionsArray.length();
+            }
+        } catch (JSONException e) {
+            // Handle parsing errors (optional)
+            e.printStackTrace();
+        }
+
+        return ChallengeDisplayDTO.builder()
+                .id(challenge.getId())
+                .title(challenge.getTitle())
+                .numQuestions(numQuestions)
+                .status(challenge.getStatus().toString())
+                .creationDate(new SimpleDateFormat("yyyy-MM-dd").format(challenge.getCreatedAt()))
+                .numberOfUses(challenge.getSessions() != null ? challenge.getSessions().size() : 0)
+                .templateName(challenge.getTemplateName())
+                .build();
+    }
+
 
 }

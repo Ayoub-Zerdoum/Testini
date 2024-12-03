@@ -17,25 +17,41 @@ export class ChallengeService {
 
   // Save the updated challenge data
   saveChanges(
-    challengeName: string, 
-    challengeDesc: string, 
-    selectedTemplate: string, 
-    questions: any[], 
+    challengeId: number | null, // Include challengeId
+    challengeName: string,
+    challengeDesc: string,
+    selectedTemplate: string,
+    questions: any[],
     instructorId: number
   ): Observable<any> {
-    // Format the current date in 'yyyy-MM-dd HH:mm:ss' format
-    const formattedDate = new Date()
-    // Construct the challenge JSON (without instructorId inside)
+    const formattedDate = new Date();
     const challengeData = {
       title: challengeName,
       description: challengeDesc,
-      challengeData: JSON.stringify({ questions }), // JSON.stringify for complex data like questions
+      challengeData: JSON.stringify({ questions }),
       templateName: selectedTemplate,
-      status: 'IN_PROGRESS',  // Status is always "IN_PROGRESS" when creating
-      createdAt: formattedDate, // Use the current date and time for creation in the correct format
+      status: 'IN_PROGRESS',
+      createdAt: formattedDate,
     };
   
-    // Make the HTTP request to save the challenge (send instructorId as a URL parameter)
-    return this.http.post(`${this.apiUrl}?instructorId=${instructorId}`, challengeData);
+    const url = `${this.apiUrl}/save/${challengeId}?instructorId=${instructorId}`;
+    return this.http.post(url, challengeData); // Send data to the backend
+  }
+  
+
+  loadChallenge(challengeId: number,instructorId: number): Observable<any>{
+    const url = `${this.apiUrl}/load/${challengeId}?instructorId=${instructorId}`; 
+    return this.http.get(url, {});
+  }
+
+  publishChallenge(challengeId: number): Observable<any> {
+    const url = `${this.apiUrl}/publish/${challengeId}`;
+    return this.http.put(url, {});
+  }
+
+  // Function to get challenges for a specific instructor
+  getChallengesByInstructor(instructorId: number): Observable<any> {
+    const url = `${this.apiUrl}/display/${instructorId}`;
+    return this.http.get(url,{});
   }
 }

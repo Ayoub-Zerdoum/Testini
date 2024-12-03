@@ -1,5 +1,6 @@
 package com.example.backend.services.ServiceImpl;
 
+import com.example.backend.dtos.ChallengeDisplayDTO;
 import com.example.backend.entites.Challenge;
 import com.example.backend.entites.Instructor;
 import com.example.backend.enums.ChallengeStatus;
@@ -13,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -62,6 +64,18 @@ public class ChallengeServiceImpl implements ChallengeService {
         }
     }
 
+    @Override
+    public void publishChallenge(Long challengeId) {
+        Optional<Challenge> challengeOptional = challengeRepository.findById(challengeId);
+        if (challengeOptional.isPresent()) {
+            Challenge challenge = challengeOptional.get();
+            challenge.setStatus(ChallengeStatus.PUBLISHED);
+            challengeRepository.save(challenge);
+        } else {
+            throw new IllegalArgumentException("Challenge not found.");
+        }
+    }
+
     // Modified method to get challenge by id and validate the instructorId
     @Override
     public Challenge getChallengeByIdWithInstructor(Long challengeId, Long instructorId) {
@@ -75,6 +89,14 @@ public class ChallengeServiceImpl implements ChallengeService {
         }
 
         return challenge;
+    }
+
+    @Override
+    public List<Challenge> getAllChallengesByInstructor(Long instructorId) {
+        // Fetch challenges for the specific instructor
+        List<Challenge> challenges = challengeRepository.findByInstructorCH_Id(instructorId);
+
+        return  challenges;
     }
 
     @Override

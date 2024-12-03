@@ -1,5 +1,5 @@
 import { Component,Renderer2, ElementRef } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ChallengeService } from '../services/challenge.service';
 
@@ -20,16 +20,30 @@ export class ChallengeCreatorComponent {
   changeDetector: any;
 
   constructor(private route: ActivatedRoute,
+              private router: Router,
               private messageService: MessageService,
               private confirmationService: ConfirmationService,
               private challengeService: ChallengeService) {}
 
 
-  id: Number = 0;
+  challengeId: number = 0;
   types: { label: string; value: string }[] = [];
 
+  
+
   ngOnInit() {
-    this.id = Number(this.route.snapshot.paramMap.get('id') ?? 0);
+    // Retrieve challenge ID from route
+    this.challengeId = Number(this.route.snapshot.paramMap.get('id')) || 0;
+
+    // Retrieve instructor ID from sessionStorage or a default
+    sessionStorage.setItem('instructorId', '1');
+    this.instructorId = Number(sessionStorage.getItem('instructorId')) || 0;
+
+    console.log(this.challengeId);
+    console.log(this.instructorId);
+
+    // Load challenge with both IDs
+    this.loadChallenge(this.challengeId, this.instructorId);
 
     this.types = [
       { label: 'Quiz', value: 'Quiz' },
@@ -44,10 +58,10 @@ export class ChallengeCreatorComponent {
    currentStep = 0;
 
    steps : any[] = [
-    { title: 'Question 1', question: null },
+    //{ title: 'Question 1', question: null },
   ];
 
-  instructorId:number = 1;
+  instructorId!: number;
 
   
   challengeName: string = 'Default Challenge Name';  // Initialize with a default name
@@ -126,6 +140,25 @@ export class ChallengeCreatorComponent {
     });
   }
 
+  deleteStep(index: number, event: Event): void {
+  
+    // Remove the step from the array
+    this.steps.splice(index, 1);
+  
+    // Update the question numbers after deletion
+    this.steps.forEach((step, i) => {
+      console.log(i+":"+ step.title);
+      if (step.title.trim() == `Question ${i+2}`) {
+        step.title = `Question ${i+1}`;
+        console.log("inside if");
+      }
+    });
+  
+    // Mark that the data has been changed
+    this.isChanged = true;
+  }
+  
+
   // Method to handle question updates from the child component
   onQuestionChange(updatedQuestion: any,i: any) {
     this.isChanged = true;
@@ -136,6 +169,7 @@ export class ChallengeCreatorComponent {
   setStep(index: number): void {
     this.currentStep = index; // Set the current step to the clicked step
   }
+  
 
   nextStep() {
     if (this.currentStep < this.steps.length - 1) {
@@ -169,6 +203,11 @@ export class ChallengeCreatorComponent {
     if (step.question.type == "Quiz" && step.question.data.options.some((option: string) => option.trim() === '')) {
       return 'Some options are empty';
     }
+    
+    if (step.question.type == "Quiz" && step.question.data.correctAnswerIndex == null) {
+      return 'The this quiz doesnt have a correct answer';
+    }
+    
   
     // If all checks pass, return an empty string
     return '';
@@ -178,6 +217,7 @@ export class ChallengeCreatorComponent {
   
   Save(event: Event): void {
     this.challengeService.saveChanges(
+      this.challengeId, // Pass challengeId
       this.challengeName,
       this.challengeDesc,
       this.selectedTemplate,
@@ -194,6 +234,7 @@ export class ChallengeCreatorComponent {
       }
     });
   }
+  
 
   messages: any[] = [];
   Publish(event: Event) {
@@ -236,8 +277,40 @@ export class ChallengeCreatorComponent {
       accept: () => {
         // Only proceed with publishing if there are no validation errors
         if (this.messages.length === 0) {
-          this.messageService.add({ severity: 'info', summary: 'Published', detail: 'Challenge has been published successfully.' });
-          // Add your publish logic here (e.g., API call)
+          // Check if there are unsaved changes
+          if (this.isChanged) {
+            this.Save(event);
+
+            // After saving, check if changes were saved successfully
+            if (!this.isChanged) {
+              // If save was successful, proceed to publish
+              this.challengeService.publishChallenge(this.challengeId).subscribe({
+                next: () => {
+                  this.messageService.add({ severity: 'info', summary: 'Published', detail: 'Challenge has been published successfully.' });
+                  this.router.navigate(['/inside/challenges']);
+                },
+                error: (error) => {
+                  this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to Publish' });
+                  console.error('Publish Error:', error);
+                }
+              });
+            } else {
+              // If save failed, do not proceed to publish
+              this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Save Failed. Publish aborted.' });
+            }
+          } else {
+            // If no changes to save, directly proceed to publish
+            this.challengeService.publishChallenge(this.challengeId).subscribe({
+              next: () => {
+                this.messageService.add({ severity: 'info', summary: 'Published', detail: 'Challenge has been published successfully.' });
+                this.router.navigate(['/inside/challenges']);
+              },
+              error: (error) => {
+                this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to Publish' });
+                console.error('Publish Error:', error);
+              }
+            });
+          }
         }
       },
       reject: () => {
@@ -302,4 +375,24 @@ export class ChallengeCreatorComponent {
     this.viewActivated = true;
   }
 
+
+  // Loading data from database
+  // Load challenge data from the service
+  loadChallenge(challengeId: number, instructorId: number): void {
+    this.challengeService.loadChallenge(challengeId, instructorId).subscribe({
+      next: (response) => {
+        console.log("the response is:")
+        console.log(response);
+
+        // Update the local variables with the received data
+        this.challengeName = response.title || this.challengeName;
+        this.challengeDesc = response.description || this.challengeDesc;
+        this.selectedTemplate = response.templateName || this.selectedTemplate;
+        this.steps = response.questions || this.steps;
+      },
+      error: (err) => {
+        console.error('Error loading challenge:', err);
+      }
+    });
+  }
 }

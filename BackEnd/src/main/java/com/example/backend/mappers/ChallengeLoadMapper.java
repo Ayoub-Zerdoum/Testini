@@ -3,6 +3,7 @@ package com.example.backend.mappers;
 import com.example.backend.dtos.ChallengeLoadDTO;
 import com.example.backend.entites.Challenge;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.convert.ConversionService;
@@ -26,38 +27,52 @@ public class ChallengeLoadMapper {
         // Parse challengeData to extract questions
         String challengeData = challenge.getChallengeData();
         List<Map<String, Object>> questions = parseChallengeData(challengeData);
+        //System.out.println(questions);
         challengeLoadDTO.setQuestions(questions);
 
         return challengeLoadDTO;
     }
 
-    // Method to parse challengeData (JSON string) into List<Map<String, Object>> (questions)
     private List<Map<String, Object>> parseChallengeData(String challengeData) {
         List<Map<String, Object>> questionsList = new ArrayList<>();
-        System.out.println("challengeData: " + challengeData);
 
         try {
-            // Convert challengeData string to a JSONObject
-            JSONObject json = new JSONObject(challengeData);
-            JSONArray questionsArray = json.getJSONArray("questions");
+            JSONObject challengeJson = new JSONObject(challengeData);
+            JSONArray questionsArray = challengeJson.getJSONArray("questions");
 
-            // Loop through the questions array and create the list of questions
             for (int i = 0; i < questionsArray.length(); i++) {
                 JSONObject questionObject = questionsArray.getJSONObject(i);
 
-                // Add each question to the list as a Map without diving deeper into the 'question' field
-                Map<String, Object> questionMap = Map.of(
-                        "title", questionObject.getString("title"),
-                        "question", questionObject.get("question") // Keep the whole question as is
-                );
+                // Debug logging for questionObject
+                System.out.println("Processing questionObject: " + questionObject);
+
+                Object questionField = questionObject.get("question");
+                Object processedQuestion;
+
+                if (questionField instanceof JSONObject) {
+                    processedQuestion = ((JSONObject) questionField).toMap();
+                } else if (questionField == JSONObject.NULL) {
+                    // Log and handle the null case
+                    System.err.println("Found JSONObject.NULL for question: " + questionObject);
+                    processedQuestion = null; // Replace with an appropriate fallback value
+                } else {
+                    processedQuestion = questionField;
+                }
+
+                Map<String, Object> questionMap = new HashMap<>();
+                questionMap.put("title", questionObject.getString("title"));
+                questionMap.put("question", processedQuestion);
+
                 questionsList.add(questionMap);
             }
-        } catch (Exception e) {
-            e.printStackTrace(); // Log properly instead of printing
-            // In case of error, return an empty list or handle as appropriate
-            return new ArrayList<>(); // Returning an empty list instead of null
+        } catch (JSONException e) {
+            System.err.println("Error parsing challenge data: " + e.getMessage());
+            e.printStackTrace();
+            return new ArrayList<>();
         }
 
         return questionsList;
     }
+
+
 }

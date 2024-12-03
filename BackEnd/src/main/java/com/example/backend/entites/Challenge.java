@@ -31,6 +31,7 @@ public class Challenge implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
 
+    @Column(columnDefinition = "LONGTEXT")
     private String challengeData; // Assuming JSON stored as a String
     private String templateName;
 

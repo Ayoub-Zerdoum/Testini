@@ -183,7 +183,39 @@
     font-size: 18px;
     font-weight: bold;
     flex-shrink: 0; /* Prevents the circle from shrinking */
+    position: relative;
+    cursor: pointer;
+  }
 
+  .delete-icon {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: #ff4d4d; /* Reddish color */
+    padding: 5px;
+    color: white; /* White trash icon */
+    border-radius: 50%;
+    text-align: center;
+    line-height: 20px;
+    font-size: 12px;
+    display: none; /* Hidden initially */
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+  
+  /* Show the delete icon when hovering over the circle */
+  .circle:hover .delete-icon {
+    display: flex;
+  }
+
+  .delete-icon:hover {
+    background-color: #c0392b; /* Darker red on hover */
+  }
+  
+  /* Style the PrimeNG trash icon */
+  .delete-icon .pi {
+    font-size: 12px;
   }
   
   .step-content {

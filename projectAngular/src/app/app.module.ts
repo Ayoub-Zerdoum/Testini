@@ -70,7 +70,6 @@ import { CustomStepperComponent } from './custom-stepper/custom-stepper.componen
 import { QRQuestionComponent } from './questions/qr-question/qr-question.component';
 
 
-import { TreeTableModule } from 'primeng/treetable';
 
 import { TreeModule } from 'primeng/tree';
 
@@ -112,17 +111,8 @@ import { TreeModule } from 'primeng/tree';
     ToolbarModule,
     DividerModule,
     SelectButtonModule, TagModule,
-<<<<<<< HEAD
-    SplitterModule, DragDropModule,
-    ToastModule,
-    IconFieldModule, InputIconModule,
-    ConfirmDialogModule,
-    MessagesModule,
-    TreeTableModule
-=======
 
     SplitterModule, DragDropModule, ToastModule, ConfirmDialogModule, TreeTableModule, TreeModule, IconFieldModule, InputIconModule, MessagesModule
->>>>>>> 913a90161c9198a21a4aed123ad2c6f203a1c318
   ],
   providers: [
     provideClientHydration(), provideHttpClient(withFetch()), MessageService, ConfirmationService

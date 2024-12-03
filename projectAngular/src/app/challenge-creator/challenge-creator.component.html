@@ -74,7 +74,7 @@
                         severity="danger"
                         icon="pi pi-upload" 
                         (onClick)="Publish($event)" />
-                    <p-toast />
+                    
                     <p-confirmDialog class="publish-dialogue">
                         <ng-template pTemplate="message" let-message>
                             <div class="flex flex-column align-items-center w-full gap-3 border-bottom-1 surface-border">
@@ -100,6 +100,12 @@
                       <div class="step-item">
                         <div class="circle" (click)="setStep(i)">
                           <span>{{ i + 1 }}</span>
+                          <div 
+                            class="delete-icon" 
+                            *ngIf="steps.length > 1" 
+                            (click)="deleteStep(i, $event)">
+                            <i class="pi pi-trash"></i>
+                           </div>
                         </div>
                         <div class="content-container">
                             <div class="step-content" [ngClass]="{ 'active-content': currentStep === i }">
@@ -138,6 +144,7 @@
                                               class="question-template" 
                                               [number]="i" 
                                               [mode]="'creation'" 
+                                              [questionData]="step.question"
                                               (questionChange)="onQuestionChange($event, i)">
                                           </app-quiz1>
                                       </ng-container>
@@ -147,6 +154,7 @@
                                               class="question-template" 
                                               [number]="i" 
                                               [mode]="'creation'" 
+                                              [questionData]="step.question"
                                               (questionChange)="onQuestionChange($event, i)">>
                                           </app-qr-question>
                                       </ng-container>

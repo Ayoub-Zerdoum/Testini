@@ -12,6 +12,12 @@ interface Question {
   styleUrl: './quiz1.component.scss'
 })
 export class Quiz1Component {
+  ngOnInit(): void {
+    if(this.questionData !== null){
+      this.question = this.questionData;
+    }
+  }
+  
   @Input() mode?: 'view' | 'creation' | 'ask';
   @Input() number!: number;
 

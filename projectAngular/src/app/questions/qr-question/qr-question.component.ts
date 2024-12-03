@@ -15,7 +15,19 @@ interface Question {
   styleUrls: ['./qr-question.component.scss']
 })
 export class QRQuestionComponent {
-  @Input()   @Input() questionData: any;
+  /*
+  ngOnInit(): void {
+    if(this.questionData !== null){
+      this.question = this.questionData;
+    }
+    console.log("hello")
+    console.log(this.questionData)
+    console.log(this.question)
+  }
+    */
+  ngOnInit(): void {}
+
+ @Input() questionData: any;
 
   QADataView: Question = {
     type: 'Q/A',
@@ -34,6 +46,7 @@ export class QRQuestionComponent {
   @Output() questionChange = new EventEmitter<Question>();
 
   // Default question structure for Q/A type
+  
   question: Question = {
     type: 'Q/A',
     number: 1,

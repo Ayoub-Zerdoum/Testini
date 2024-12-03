@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ChallengeService } from '../services/challenge.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-template-gallery',
@@ -12,6 +13,8 @@ export class TemplateComponent {
       private router: Router,
       private challengeService: ChallengeService
   ) {}
+
+  
 
   types = [
     { label: 'Quiz', value: 'quiz' },
@@ -49,4 +52,6 @@ export class TemplateComponent {
         }
     });
   }
+
+  
 }

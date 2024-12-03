@@ -1,6 +1,7 @@
 package com.example.backend.web;
 
 import com.example.backend.dtos.ChallengeDTO;
+import com.example.backend.dtos.ChallengeDisplayDTO;
 import com.example.backend.dtos.ChallengeLoadDTO;
 import com.example.backend.entites.Challenge;
 import com.example.backend.mappers.ChallengeLoadMapper;
@@ -55,6 +56,7 @@ public class ChallengeController {
 
             // Map the Challenge entity to the appropriate DTO for loading
             ChallengeLoadDTO challengeLoadDTO = challengeLoadMapper.convertToChallengeLoadDTO(challenge);
+            System.out.println(challengeLoadDTO);
 
             return ResponseEntity.ok(challengeLoadDTO);  // Return the loaded DTO
         } catch (IllegalArgumentException e) {
@@ -63,14 +65,16 @@ public class ChallengeController {
         }
     }
 
-    @PostMapping
+    @PostMapping("/save/{challengeId}")
     public ResponseEntity<Map<String, String>> createOrUpdateChallenge(
+            @PathVariable Long challengeId,
             @RequestBody ChallengeDTO challengeDTO,
             @RequestParam Long instructorId) {
 
         try {
             // Convert the DTO to the Challenge entity
             Challenge challenge = challengeMapper.convertToChallenge(challengeDTO, instructorId);
+            challenge.setId(challengeId);
 
             // Call the service to save the challenge (service method returns void)
             challengeService.saveChallenge(challenge, instructorId);
@@ -90,6 +94,33 @@ public class ChallengeController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
         }
     }
+
+    @PutMapping("/publish/{challengeId}")
+    public ResponseEntity<Map<String, Object>> publishChallenge(@PathVariable Long challengeId) {
+        Map<String, Object> response = new HashMap<>();
+        try {
+            challengeService.publishChallenge(challengeId);
+            response.put("status", "success");
+            response.put("message", "Challenge published successfully.");
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            response.put("status", "error");
+            response.put("message", "Failed to publish challenge: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        }
+    }
+
+    @GetMapping("/display/{instructorId}")
+    public List<ChallengeDisplayDTO> getInstructorChallengesForDisplay(@PathVariable Long instructorId) {
+        // Fetch challenges for the instructor from the service
+        List<Challenge> challenges = challengeService.getAllChallengesByInstructor(instructorId);
+
+        // Use the mapper to convert entities to DTOs
+        return challenges.stream()
+                .map(challengeMapper::toChallengeDisplayDTO)
+                .toList();
+    }
+
 
     @GetMapping
     public ResponseEntity<List<ChallengeDTO>> getAllChallenges() {

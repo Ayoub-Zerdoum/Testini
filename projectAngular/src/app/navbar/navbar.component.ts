@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
+import { GlobalService } from '../services/global.service';
 
 @Component({
   selector: 'app-navbar',
@@ -18,7 +19,7 @@ export class NavbarComponent {
     this.sidebarToggle.emit(this.isExpanded); // Notify parent component
   }
 
-  constructor(public router: Router) { }
+  constructor(public router: Router,private globalService: GlobalService) { }
 
   // Function to check if the current route matches the provided route
   isActive(route: string): boolean {
@@ -26,7 +27,14 @@ export class NavbarComponent {
   }
 
   showMagnifierInstructions(){
-    
+    this.globalService.activateMagnifier().subscribe(
+      response => {
+        console.log('API activated successfully:', response);
+      },
+      error => {
+        console.error('Error activating API:', error);
+      }
+    );;
   }
 
 }
