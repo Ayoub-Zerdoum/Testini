@@ -23,7 +23,7 @@ export class Quiz1Component {
   @Input() mode?: 'view' | 'creation' | 'ask';
   @Input() number!: number;
 
-  @Input() template?: string; // Optional template string
+  @Input() template?: string; 
   @Input() questionData: any;
 
   @Output() questionChange = new EventEmitter<any>();

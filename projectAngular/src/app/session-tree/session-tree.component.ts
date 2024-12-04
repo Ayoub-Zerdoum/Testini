@@ -3,6 +3,7 @@ import { TreeNode } from 'primeng/api';
 import { SessionService } from '../services/session.service';
 import { SessionNodeDto } from '../entities/SessionNodeDto';
 import { SessionDTO } from '../entities/Session';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 @Component({
@@ -16,22 +17,29 @@ export class SessionTreeComponent implements OnInit {
   selectedId: number | null = null; // ID of the student to display in the dialog
   displayDialog: boolean = false; // Control dialog visibility
   fathers: SessionDTO[] = [];
+  classroomId: number = 1;
   @Output() SessionEmitter: EventEmitter<SessionDTO[]> = new EventEmitter<SessionDTO[]>();
 
 
-  constructor(private sessionService: SessionService) { }
+  constructor(private sessionService: SessionService,private router: Router,private route: ActivatedRoute) { }
 
 
 
   ngOnInit() {
+    this.classroomId = Number(this.route.snapshot.paramMap.get('id')) || 0;
     this.loadTreeData();
     this.SessionEmitter.emit(this.fathers);
 
 
   }
 
+  resendSessions() {
+    this.loadTreeData();
+    this.SessionEmitter.emit(this.fathers);
+  }
+
   loadTreeData() {
-    this.sessionService.treenizationSessionByClassroomId(1).subscribe((data: SessionNodeDto[]) => {
+    this.sessionService.treenizationSessionByClassroomId(this.classroomId).subscribe((data: SessionNodeDto[]) => {
       const emails = new Set<string>();
 
 

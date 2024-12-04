@@ -19,7 +19,7 @@ const routes: Routes = [
   {
     path: 'inside', component: InsideComponent, children: [
       { path: 'home', component: HomeComponent },
-      { path: 'report-card', component: NewReportCardComponent },
+      { path: 'report-card/:id', component: NewReportCardComponent },
       { path: 'challenges', component: ChallengesGalleryComponent },
       { path: 'template', component: TemplateComponent },
       { path: 'classroom', component: ClassroomDisplayComponent },

@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { SessionDTO } from '../entities/Session';
 import { SessionService } from '../services/session.service';
 import { MergeDTO, OperationM } from '../entities/MergeDTO';
 import { MergeService } from '../services/merge.service';
+import { SessionTreeComponent } from '../session-tree/session-tree.component';
 
 @Component({
   selector: 'app-new-report-card',
@@ -10,6 +11,8 @@ import { MergeService } from '../services/merge.service';
   styleUrls: ['./new-report-card.component.scss']
 })
 export class NewReportCardComponent implements OnInit {
+  @ViewChild(SessionTreeComponent) childComponent!: SessionTreeComponent;
+  
   breadcrumbItems!: any[];
   sessions!: SessionDTO[];
   mergeSessionsDialog: boolean = false;
@@ -61,6 +64,8 @@ export class NewReportCardComponent implements OnInit {
       );
     }
   */
+
+    
   openMergeDialog() {
     this.mergeSessionsDialog = true;
     this.selectedSessions = [];
@@ -104,9 +109,12 @@ export class NewReportCardComponent implements OnInit {
     this.mergeService.createMerge(mergeDTO, classroomId).subscribe(
       (response: MergeDTO) => {
         console.log('Merge saved successfully:', response);
+        this.childComponent.resendSessions();
         this.mergeSessionsDialog = false; // Close the dialog on success
       },
       error => console.error('Error saving merge:', error)
     );
+
+    
   }
 }

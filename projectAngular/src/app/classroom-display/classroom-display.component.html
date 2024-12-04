@@ -23,7 +23,7 @@
 
     <div class="cards">
         <!-- Loop through fetched classrooms and display each one -->
-        <app-classroom-card *ngFor="let classroom of classrooms" (click)="navigateTo('/inside/report-card')"
+        <app-classroom-card *ngFor="let classroom of classrooms" (click)="navigateTo(classroom.id)"
             [id]="classroom.id" [title]="classroom.title" [titleColor]="classroom.titleColor"
             [studentCount]="classroom.studentCount" [assignmentCount]="classroom.assignmentCount"
             [creationDate]="classroom.creationDate" [nextTestDate]="classroom.nextTestDate"

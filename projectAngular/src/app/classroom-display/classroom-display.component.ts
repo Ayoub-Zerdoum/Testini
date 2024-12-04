@@ -36,8 +36,8 @@ export class ClassroomDisplayComponent implements OnInit {
     this.loadClassrooms(); // Reload data
   }
 
-  navigateTo(route: string): void {
-    this.router.navigate([route]);
+  navigateTo(classroomId: number) {
+    this.router.navigate(['/inside/report-card', classroomId]);
   }
 
   selectMenu(item: string): void {
