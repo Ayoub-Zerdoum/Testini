@@ -42,19 +42,20 @@ img {
 .quiz-question {
     font-size: 15px;
     margin-bottom: 10px;
+    margin-top: 0;
     position: absolute;
     width: 100%;
     top: 50%;
     transform: translateY(-50%);
     display: none;
     color: #f0f0f0;
-    padding: 30px;
+    padding: 0 30px;
     text-align: center;
     overflow: hidden !important;
 
 }
 
-.quiz-container[_ngcontent-ng-c2929977641]{
+.quiz-container{
     overflow: hidden;
 }
 
@@ -105,6 +106,11 @@ img {
 .info:hover .quiz-footer {
     display: block;
 
+}
+
+.info:hover .sous_info{
+    align-self: flex-start !important;
+    margin-top: 4px;
 }
 
 

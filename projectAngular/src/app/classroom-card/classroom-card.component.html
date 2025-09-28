@@ -44,15 +44,15 @@
     (onHide)="reversedSave()" [style]="{ width: '25rem', backgroundColor: selectedColor }">
 
     <!-- Classroom Title Input -->
-    <div class="flex align-items-center gap-3 mb-5">
+    <div class="flex align-items-center gap-3 mb-5 titleInput">
         <label for="classroomTitle" class="font-semibold w-6rem">Classroom Title</label>
         <input pInputText id="classroomTitle" class="flex-auto" [(ngModel)]="classroomTitle" autocomplete="off" />
     </div>
 
     <!-- Horizontal Color Selection -->
-    <div class="flex align-items-center gap-2 mb-5">
+    <div class="flex align-items-center gap-2 mb-5 colorInput">
         <label class="font-semibold w-6rem">Choose Color</label>
-        <div class="flex gap-2 overflow-auto" style="white-space: nowrap;">
+        <div class="flex gap-2 overflow-auto colorContainer" style="white-space: nowrap;">
             <div *ngFor="let color of colorOptions" class="color-circle" [ngStyle]="{ backgroundColor: color }"
                 (click)="selectColor(color)" [class.selected]="color === selectedColor">
             </div>
@@ -60,7 +60,7 @@
     </div>
 
     <!-- Action Buttons -->
-    <div class="flex justify-content-end gap-2">
+    <div class="flex justify-content-end gap-2 actions-btn-container">
         <p-button label="Cancel" severity="secondary" (onClick)="visible = false" (onClick)="reversedSave()"></p-button>
         <p-button label="Save" (onClick)="saveChanges()"></p-button>
     </div>

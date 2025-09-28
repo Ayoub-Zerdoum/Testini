@@ -101,10 +101,28 @@
 
 
 
+.titleInput{
+    margin: 10px 0;
+    justify-content: space-between;
+}
+
+.titleInput label{
+    margin-right: 10px;
+}
+
+.colorInput .colorContainer{
+    padding: 5px 0px;
+    margin-bottom: 20px;
+}
+
+.color-circle{
+    margin-right: 2px;
+}
 
 
-
-
+::ng-deep .actions-btn-container button{
+    margin-right: 10px;
+}
 
 
 
